@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         ),
         themeMode: ThemeMode.dark,
         darkTheme: ThemeData(
-          primarySwatch: Colors.lightBlue,
+          primarySwatch: Colors.blueGrey,
         ),
         routes: {
           "/": (context) => LoginScreen(),
