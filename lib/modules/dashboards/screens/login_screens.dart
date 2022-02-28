@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:mcbp/modules/dashboards/models/login.dart';
+import 'package:mcbp/modules/dashboards/screens/dashboard_screen.dart';
+import 'package:mcbp/modules/dashboards/screens/home_page.dart';
+import 'package:mcbp/utils/services/mcbp_db.dart';
 import 'package:mcbp/widgets/snackbar_alert.dart';
 
 import '../../../config/routes/mcbp_routes.dart';
@@ -20,14 +25,48 @@ class _LoginScreenState extends State<LoginScreen> {
   final _username = TextEditingController();
   final _password = TextEditingController();
 
-  registerBtn(){
+  var db;
+
+  @override
+  void initState(){
+    super.initState();
+    db = McbpDatabase.instance;
+  }
+
+  registerBtn() async{
     if(_username.text.isEmpty) {
       showToast(context, "User Id Required");
     }else if(_password.text.isEmpty){
       showToast(context, "Please Provide Password");
     }else{
 
+      await db.create(
+        Login(username: _username.text, password: _password.text)
+      ).then((result){
+          showToast(context, "Successfully User Created");
+      }).catchError((error){
+          showToast(context, "$error");
+          showToast(context, "User ID is Exists");
+      });
     }
+  }
+
+  loginBtn() async{
+    if(_username.text.isEmpty) {
+      showToast(context, "User Id Required");
+    }else if(_password.text.isEmpty){
+      showToast(context, "Please Provide Password");
+    }else{
+      await db.loginAuth(_username.text,_password.text).then((response){
+        print("$response");
+          showToast(context, "Login Successfully");
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomePage()),((Route<dynamic> route) => false));
+      }).catchError((error){
+          print(error);
+          showToast(context, "$error");
+      });
+    }
+
   }
 
   @override
@@ -97,14 +136,13 @@ class _LoginScreenState extends State<LoginScreen> {
                       )
                     ],
                   ),
+
                 ),
                 const SizedBox(
                   height: 40.0,
                 ),
                 ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushNamed(context, AppRoutes.homeRoute);
-                  },
+                  onPressed: loginBtn,
                   child: const Text("লগ-ইন",style: TextStyle(color: Colors.white),),
                   style: TextButton.styleFrom(backgroundColor: Colors.indigo),
                 ),

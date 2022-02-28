@@ -27,14 +27,16 @@ class McbpDatabase{
   }
 
   Future _createDB(Database db, int version) async{
-    final idType = 'INTEGER PRIMARY KEY AUTOINCREAMENT';
+
+    final idType = 'INTEGER PRIMARY KEY';
+
     final textType = 'TEXT NOT NULL';
     final integerType = 'INTEGER NOT NULL';
     await db.execute(
       '''
         CREATE TABLE $tableLogin(
           ${LoginFields.id} $idType,
-          PRIMARY KEY ${LoginFields.username} $textType,
+          ${LoginFields.username} TEXT NOT NULL UNIQUE,
           ${LoginFields.password} $textType
         )
       '''
@@ -49,6 +51,19 @@ class McbpDatabase{
     return login.copy(id:id);
   }
 
+  Future<Login?> loginAuth(String userId, String pass) async{
+    final db = await instance.database;
+    var query = "SELECT * FROM $tableLogin WHERE"
+        " ${LoginFields.username} = '$userId' AND"
+        " ${LoginFields.password} = '$pass'";
+    var res = await db.rawQuery(query);
+
+    if(res.isNotEmpty){
+      return Login.fromMap(res.first);
+    }
+
+    return null;
+  }
   Future close() async{
     final db = await instance.database;
     db.close();

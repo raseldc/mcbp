@@ -8,11 +8,13 @@ class LoginFields{
 }
 
 class Login{
-  final int? id;
-  final String? username;
-  final String? password;
 
-  const Login({
+  int? id;
+  String? username;
+  String? password;
+
+  Login({
+
     this.id,
     required this.username,
     required this.password
@@ -34,4 +36,9 @@ class Login{
       username: username ?? this.username,
       password: password ?? this.password
   );
+
+  Login.fromMap(Map<String, dynamic> map) {
+    username = map['userId'];
+    password = map['password'];
+  }
 }

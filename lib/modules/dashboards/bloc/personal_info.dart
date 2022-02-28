@@ -1,8 +1,21 @@
 
 import 'package:flutter/material.dart';
+import 'package:mcbp/utils/helpers/string_resource.dart';
 
-class PersonalInfo extends StatelessWidget {
+class PersonalInfo extends StatefulWidget {
 
+
+  @override
+  State<PersonalInfo> createState() => _PersonalInfoState();
+}
+
+class _PersonalInfoState extends State<PersonalInfo> {
+
+
+  var items = StringResource.dhormoList;
+  var dropdownValue = StringResource.dhormoList[0];
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -144,16 +157,37 @@ class PersonalInfo extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.person),
-              hintText: "ধর্ম*",
-              labelText: "ধর্ম*",
+          Container(
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.grey,width: 1)
             ),
-            onChanged: (value){
-
-            },
+            padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+            child: DropdownButtonHideUnderline(child: DropdownButton(
+              
+              // Initial Value
+              value: dropdownValue,
+              isExpanded: true,
+              // Down Arrow Icon
+              icon: const Icon(Icons.keyboard_arrow_down),    
+                
+              // Array list of items
+              items: items.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+              }).toList(),
+              // After selecting the desired option,it will
+              // change button value to selected value
+              onChanged: (String? newValue) { 
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+            ),
+        )
           ),
           SizedBox(
             height: 20.0,
