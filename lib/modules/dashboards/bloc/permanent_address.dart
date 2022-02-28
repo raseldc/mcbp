@@ -4,160 +4,119 @@ class PermanentAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Container(
-          height: 40,
-          width: (MediaQuery.of(context).size.width),
-          padding: EdgeInsets.all(5),
-          decoration: BoxDecoration(
-            color: Colors.grey,
-          ),
-          child: Center(child: Text("স্থায়ী ঠিকানা"))
-          ,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
-          ),
-          onChanged: (value){
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.zero,
+      child: ExpansionTile(
+        initiallyExpanded: true,
+        title: Text("স্থায়ী ঠিকানা"),
+        childrenPadding: EdgeInsets.all(8.0),
+        children: [
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "্যবহারকারী আইডি",
+              labelText: "ব্যবহারকারী আইডি",
+            ),
+            onChanged: (value){
 
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+            },
           ),
-          onChanged: (value){
-
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+          SizedBox(
+            height: 20.0,
           ),
-          onChanged: (value){
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "্যবহারকারী আইডি",
+              labelText: "ব্যবহারকারী আইডি",
+            ),
+            onChanged: (value){
 
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+            },
           ),
-          onChanged: (value){
-
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+          SizedBox(
+            height: 20.0,
           ),
-          onChanged: (value){
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "্যবহারকারী আইডি",
+              labelText: "ব্যবহারকারী আইডি",
+            ),
+            onChanged: (value){
 
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+            },
           ),
-          onChanged: (value){
-
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+          SizedBox(
+            height: 20.0,
           ),
-          onChanged: (value){
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "্যবহারকারী আইডি",
+              labelText: "ব্যবহারকারী আইডি",
+            ),
+            onChanged: (value){
 
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+            },
           ),
-          onChanged: (value){
-
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+          SizedBox(
+            height: 20.0,
           ),
-          onChanged: (value){
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "্যবহারকারী আইডি",
+              labelText: "ব্যবহারকারী আইডি",
+            ),
+            onChanged: (value){
 
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        ),
-        TextFormField(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
-            suffixIcon: Icon(Icons.person),
-            hintText: "্যবহারকারী আইডি",
-            labelText: "ব্যবহারকারী আইডি",
+            },
           ),
-          onChanged: (value){
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "্যবহারকারী আইডি",
+              labelText: "ব্যবহারকারী আইডি",
+            ),
+            onChanged: (value){
 
-          },
-        ),
-        SizedBox(
-          height: 20.0,
-        )
-      ],
-    );;
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "্যবহারকারী আইডি",
+              labelText: "ব্যবহারকারী আইডি",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+
+        ],
+      ),
+    );
   }
 }

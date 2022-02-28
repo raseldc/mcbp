@@ -18,14 +18,69 @@ class HomePage extends StatelessWidget {
             child: Column(
               children: [
                 PersonalInfo(),
+                SizedBox(
+                  height: 10.0,
+                ),
                 PresentAddress(),
-                PermanentAddress()
+                SizedBox(
+                  height: 10.0,
+                ),
+                PermanentAddress(),
+                SizedBox(
+                  height: 10.0,
+                ),
               ],
             ),
           ),
         ),
       ),
-      drawer: Drawer(),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.grey,
+              ),
+              child: Text('Drawer Header'),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Card(
+                elevation: 2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                clipBehavior: Clip.antiAlias,
+                margin: EdgeInsets.zero,
+                child: ExpansionTile(
+                  title: const Text('আবেদন',style: TextStyle(fontWeight: FontWeight.bold),),
+                  children: [
+                    Container(
+                        alignment: Alignment.center,
+                        height: 25,
+                        width: (MediaQuery.of(context).size.width),
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.rectangle,
+                            color : Colors.blueGrey
+                        ),
+                        child:Text('Union', style: TextStyle(
+                          color: Colors.white,
+                        ),)
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+          ],
+        ),
+      ),
     );
   }
 }
