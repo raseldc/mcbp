@@ -1,30 +1,203 @@
 
 import 'package:flutter/material.dart';
+import 'package:mcbp/utils/helpers/string_resource.dart';
 
-class PersonalInfo extends StatelessWidget {
+class PersonalInfo extends StatefulWidget {
 
 
   @override
+  State<PersonalInfo> createState() => _PersonalInfoState();
+}
+
+class _PersonalInfoState extends State<PersonalInfo> {
+
+
+  var items = StringResource.dhormoList;
+  var dropdownValue = StringResource.dhormoList[0];
+
+  
+
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
+    return Card(
+      elevation: 5,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.zero,
+      child: ExpansionTile(
+        initiallyExpanded: true,
+        title: Text("ব্যক্তিগত তথ্য"),
+        childrenPadding: EdgeInsets.all(8.0),
         children: [
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "জাতীয় পরিচয় পত্র নং*",
+              labelText: "জাতীয় পরিচয় পত্র নং*",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "জন্ম তারিখ*",
+              labelText: "জন্ম তারিখ*",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "নাম (বাংলা)*",
+              labelText: "নাম (বাংলা)",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "নাম (ইংরেজি)*",
+              labelText: "নাম (ইংরেজি)",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "পিতার নাম*",
+              labelText: "পিতার নাম",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "মাতার নাম*",
+              labelText: "মাতার নাম",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "স্বামীর নাম*",
+              labelText: "স্বামীর নাম",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "যে নামে পরিচিত",
+              labelText: "যে নামে পরিচিত",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              suffixIcon: Icon(Icons.person),
+              hintText: "জন্মস্থান*",
+              labelText: "জন্মস্থান*",
+            ),
+            onChanged: (value){
+
+            },
+          ),
+          SizedBox(
+            height: 20.0,
+          ),
           Container(
-            height: 40,
-            width: (MediaQuery.of(context).size.width),
-            padding: EdgeInsets.all(5),
+            width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
-              color: Colors.grey,
+              borderRadius: BorderRadius.circular(5),
+              border: Border.all(color: Colors.grey,width: 1)
             ),
-            child: Center(child: Text("ব্যক্তিগত তথ্য"))
-            ,
+            padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+            child: DropdownButtonHideUnderline(child: DropdownButton(
+              
+              // Initial Value
+              value: dropdownValue,
+              isExpanded: true,
+              // Down Arrow Icon
+              icon: const Icon(Icons.keyboard_arrow_down),    
+                
+              // Array list of items
+              items: items.map((String items) {
+                return DropdownMenuItem(
+                  value: items,
+                  child: Text(items),
+                );
+              }).toList(),
+              // After selecting the desired option,it will
+              // change button value to selected value
+              onChanged: (String? newValue) { 
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+            ),
+        )
+          ),
+          SizedBox(
+            height: 20.0,
           ),
           TextFormField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
+              hintText: "মোবাইল নং",
+              labelText: "মোবাইল নং",
             ),
             onChanged: (value){
 
@@ -37,8 +210,8 @@ class PersonalInfo extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
+              hintText: "শিক্ষাগত যোগ্যতা",
+              labelText: "শিক্ষাগত যোগ্যতা",
             ),
             onChanged: (value){
 
@@ -51,8 +224,8 @@ class PersonalInfo extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
+              hintText: "রক্তের গ্রুপ",
+              labelText: "রক্তের গ্রুপ",
             ),
             onChanged: (value){
 
@@ -65,101 +238,16 @@ class PersonalInfo extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
+              hintText: "বৈবাহিক তথ্য",
+              labelText: "বৈবাহিক তথ্য",
             ),
             onChanged: (value){
 
             },
           ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
-            ),
-            onChanged: (value){
 
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
-            ),
-            onChanged: (value){
-
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
-            ),
-            onChanged: (value){
-
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
-            ),
-            onChanged: (value){
-
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
-            ),
-            onChanged: (value){
-
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-          ),
-          TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              suffixIcon: Icon(Icons.person),
-              hintText: "্যবহারকারী আইডি",
-              labelText: "ব্যবহারকারী আইডি",
-            ),
-            onChanged: (value){
-
-            },
-          ),
-          SizedBox(
-            height: 20.0,
-          )
         ],
+      ),
     );
   }
 }
