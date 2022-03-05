@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mcbp/modules/dashboards/screens/dashboard_screen.dart';
 import 'package:mcbp/modules/dashboards/screens/registration_screen.dart';
 
+import '../modules/dashboards/screens/district_screen.dart';
 import '../modules/dashboards/screens/user_screen.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
@@ -51,6 +52,12 @@ class NavigationDrawerWidget extends StatelessWidget {
           
                   Divider(color: Colors.white70),
                   const SizedBox(height: 24),
+                  buildMenuItem(
+                    text: 'Divisions',
+                    icon: Icons.favorite_border,
+                    onClicked: () => selectedItem(context, 1),
+                  ),
+                  const SizedBox(height: 16),
                   
                 ],
               ),
@@ -151,7 +158,12 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Dashboard(),
+          builder: (context) => DistrictScreen(),
+        ));
+        break;
+      case 2:
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => DistrictScreen(),
         ));
         break;
     }

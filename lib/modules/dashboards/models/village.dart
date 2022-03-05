@@ -1,14 +1,14 @@
 class Village {
   String id;
   String creationDate;
-  Null modificationDate;
+  String modificationDate;
   String active;
   String code;
   String nameInBangla;
   String nameInEnglish;
   String wardNo;
   String createdBy;
-  Null modifiedBy;
+  String modifiedBy;
   String unionId;
   String upazilaId;
   String divisionId;
@@ -145,14 +145,14 @@ class Village {
     return Village(
       id: map['id'] as String,
       creationDate: map['creationDate'] as String,
-      modificationDate: map['modificationDate'] as Null,
+      modificationDate: map['modificationDate'] as String,
       active: map['active'] as String,
       code: map['code'] as String,
       nameInBangla: map['nameInBangla'] as String,
       nameInEnglish: map['nameInEnglish'] as String,
       wardNo: map['wardNo'] as String,
       createdBy: map['createdBy'] as String,
-      modifiedBy: map['modifiedBy'] as Null,
+      modifiedBy: map['modifiedBy'] as String,
       unionId: map['unionId'] as String,
       upazilaId: map['upazilaId'] as String,
       divisionId: map['divisionId'] as String,
