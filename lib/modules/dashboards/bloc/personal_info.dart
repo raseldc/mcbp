@@ -27,7 +27,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
   var selectedBood = StringResource.bloodGroup[0];
 
   var matritialStatus = StringResource.maritialStatus;
-  var selectedMatitialStatus = StringResource.bloodGroup[0];
+  var selectedMaritialStatus = StringResource.maritialStatus[0];
   
   var districtDropdownValue = "";
 
@@ -331,9 +331,8 @@ class _PersonalInfoState extends State<PersonalInfo> {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
               child: DropdownButtonHideUnderline(child: DropdownButton(
-                hint: const Text(StringResource.maritialStatusHint),
                 // Initial Value
-                value: selectedMatitialStatus,
+                value: selectedMaritialStatus,
                 isExpanded: true,
                 // Down Arrow Icon
                 icon: const Icon(Icons.keyboard_arrow_down),    
@@ -349,7 +348,7 @@ class _PersonalInfoState extends State<PersonalInfo> {
                 // change button value to selected value
                 onChanged: (String? newValue) { 
                   setState(() {
-                    selectedMatitialStatus= newValue!;
+                    selectedMaritialStatus = newValue!;
                   });
                 },
               ),

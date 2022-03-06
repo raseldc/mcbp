@@ -5,6 +5,6 @@ class StringResource{
   
   static const String initialSelect = "--বেছে নিন--";
   static const List<String> religeonList = ['ধর্ম বেছে নিন','ইসলাম','হিন্দুধর্ম','বৌদ্ধধর্ম','খ্রিস্টানধর্ম','অন্যান্য'];
-  static const List<String> bloodGroup = ['--বেছে নিন--','এ+','এ-','বি+','বি-','এবি+','এবি-','ও+','ও-'];
-  static const List<String> maritialStatus = ['--বেছে নিন--','বিবাহিতা','বিধবা','তালাকপ্রাপ্ত','স্বামী পরিত্যক্তা','অন্যান্য'];
+  static const List<String> bloodGroup = ['--রক্তের গ্রুপ বেছে নিন--','এ+','এ-','বি+','বি-','এবি+','এবি-','ও+','ও-'];
+  static const List<String> maritialStatus = ['--বৈবাহিক অবস্থা বেছে নিন--','বিবাহিতা','বিধবা','তালাকপ্রাপ্ত','স্বামী পরিত্যক্তা','অন্যান্য'];
 }
