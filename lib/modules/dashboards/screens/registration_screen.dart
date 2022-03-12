@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:mcbp/widgets/navigation_drawer.dart';
 
+import '../bloc/financial_social_state.dart';
 import '../bloc/permanent_address.dart';
 import '../bloc/personal_info.dart';
 import '../bloc/present_address.dart';
@@ -52,6 +53,7 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                   SizedBox(
                     height: 10.0,
                   ),
+                  FinancialSocialSate(),
                 ]
               ),
             )
