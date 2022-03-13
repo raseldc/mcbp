@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:mcbp/modules/dashboards/bloc/health_info.dart';
 import 'package:mcbp/widgets/navigation_drawer.dart';
 
 import '../bloc/financial_social_state.dart';
@@ -54,6 +55,10 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                     height: 10.0,
                   ),
                   FinancialSocialSate(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  HealthState()
                 ]
               ),
             )

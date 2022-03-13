@@ -1,3 +1,5 @@
+import 'package:mcbp/modules/dashboards/bloc/health_info.dart';
+
 class StringResource{
   static const String motSokrioVatavogi = "মোট সক্রিয় ভাতাভোগী";
   static const String religeon = "ধর্ম";
@@ -23,6 +25,7 @@ class StringResource{
   static const List<String> yesOrNo = ["--বেছে নিন--","হ্যাঁ","না"];
 
   // স্বাস্থ্যগত তথ্য
+  static const String healthState = "স্বাস্থ্যগত তথ্য";
   static const String conceptionTerm = "গর্ভধারণ ক্রম*";
   static const String conceptionWeek = "গর্ভধারণ সময়কাল(সপ্তাহ) *";
 
