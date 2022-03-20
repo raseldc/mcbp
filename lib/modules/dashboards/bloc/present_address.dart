@@ -162,7 +162,7 @@ class _PresentAddressState extends State<PresentAddress> {
       margin: EdgeInsets.zero,
       child: ExpansionTile(
         initiallyExpanded: true,
-        title: Text("বববর্তমান ঠিকানা"),
+        title: Text("বর্তমান ঠিকানা"),
         childrenPadding: EdgeInsets.all(8.0),
         children: [
           Align(

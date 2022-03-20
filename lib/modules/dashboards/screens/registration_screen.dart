@@ -42,6 +42,11 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Column(children: [
+                Align(
+                    alignment: Alignment.centerRight,child: ElevatedButton(onPressed: (){}, child: Text("আবেদন"))),
+                SizedBox(
+                    height: 10.0,
+                  ),
                   PersonalInfo(),
                   SizedBox(
                     height: 10.0,
