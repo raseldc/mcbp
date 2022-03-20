@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:mcbp/modules/dashboards/bloc/health_info.dart';
 import 'package:mcbp/widgets/navigation_drawer.dart';
 
+import '../bloc/file_upload.dart';
 import '../bloc/financial_social_state.dart';
 import '../bloc/permanent_address.dart';
 import '../bloc/personal_info.dart';
@@ -19,7 +20,6 @@ class RegistraionScreen extends StatefulWidget {
 }
 
 class _RegistraionScreenState extends State<RegistraionScreen> {
-
 
 
   @override
@@ -58,7 +58,11 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                   SizedBox(
                     height: 10.0,
                   ),
-                  HealthState()
+                  HealthState(),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  RegistrationFileUpload(),
                 ]
               ),
             )
