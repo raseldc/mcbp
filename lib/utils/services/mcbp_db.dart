@@ -41,6 +41,16 @@ class McbpDatabase{
         )
       '''
     );
+
+    await db.execute(
+      '''
+        CREATE TABLE $tableLogin(
+          ${LoginFields.id} $idType,
+          ${LoginFields.username} TEXT NOT NULL UNIQUE,
+          ${LoginFields.password} $textType
+        )
+      '''
+    );
   }
 
   Future<Login> create(Login login) async{
