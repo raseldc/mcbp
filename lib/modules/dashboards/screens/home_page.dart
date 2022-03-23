@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mcbp/config/routes/mcbp_routes.dart';
-import 'package:mcbp/modules/dashboards/bloc/permanent_address.dart';
-import 'package:mcbp/modules/dashboards/bloc/personal_info.dart';
-import 'package:mcbp/modules/dashboards/bloc/present_address.dart';
 import 'package:mcbp/modules/dashboards/screens/dashboard_screen.dart';
 import 'package:mcbp/modules/dashboards/screens/registration_screen.dart';
 import 'package:mcbp/utils/helpers/string_resource.dart';

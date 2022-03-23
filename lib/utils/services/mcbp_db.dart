@@ -4,6 +4,8 @@ import 'package:mcbp/modules/dashboards/models/login.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
+import '../../modules/dashboards/models/registration.dart';
+
 class McbpDatabase{
   static final McbpDatabase instance = McbpDatabase._init();
 
@@ -44,13 +46,57 @@ class McbpDatabase{
 
     await db.execute(
       '''
-        CREATE TABLE $tableLogin(
-          ${LoginFields.id} $idType,
-          ${LoginFields.username} TEXT NOT NULL UNIQUE,
-          ${LoginFields.password} $textType
+        CREATE TABLE $tableRegistration(
+          ${RegistrationFields.id} $idType,
+          ${RegistrationFields.nationalId} $textType,
+          ${RegistrationFields.birthDate} $textType,
+          ${RegistrationFields.personalNameInBangla} $textType,
+          ${RegistrationFields.personalNameInEnglish} $textType,
+          ${RegistrationFields.personalFatherName} $textType,
+          ${RegistrationFields.personalMotherName} $textType,
+          ${RegistrationFields.personalHusbandName} $textType,
+          ${RegistrationFields.personalNickName} $textType,
+          ${RegistrationFields.personalBirthPlace} $textType,
+          ${RegistrationFields.personalReligeon} $textType,
+          ${RegistrationFields.personalMobileNo} $textType,
+          ${RegistrationFields.personalEducation} $textType,
+          ${RegistrationFields.personalBloodGroup} $textType,
+          ${RegistrationFields.personalMaritialStatus} $textType,
+          ${RegistrationFields.presentDivision} $textType,
+          ${RegistrationFields.presentDistrict} $textType,
+          ${RegistrationFields.presentSubDistrict} $textType,
+          ${RegistrationFields.presentUnion} $textType,
+          ${RegistrationFields.presentVillage} $textType,
+          ${RegistrationFields.presentPostCode} $textType,
+          ${RegistrationFields.presentStreet} $textType,
+          ${RegistrationFields.permanentDivision} $textType,
+          ${RegistrationFields.permanentDistrict} $textType,
+          ${RegistrationFields.permanentSubDistrict} $textType,
+          ${RegistrationFields.permanentUnion} $textType,
+          ${RegistrationFields.permanentVillage} $textType,
+          ${RegistrationFields.permanentPostCode} $textType,
+          ${RegistrationFields.permanentStreet} $textType,
+          ${RegistrationFields.propertyAmount} $textType,
+          ${RegistrationFields.familyHeadOccupation} $textType,
+          ${RegistrationFields.husbandMonthlyIncome} $textType,
+          ${RegistrationFields.sanitationFacility} $textType,
+          ${RegistrationFields.electricityFacility} $textType,
+          ${RegistrationFields.electricityFan} $textType,
+          ${RegistrationFields.tubewelFacility} $textType,
+          ${RegistrationFields.bedRoomWall} $textType,
+          ${RegistrationFields.disablePerson} $textType,
+          ${RegistrationFields.conceptionPriod} $textType,
+          ${RegistrationFields.conceptionTimeInWeek} $textType,
+          ${RegistrationFields.paymentType} $textType,
+          ${RegistrationFields.accountName} $textType,
+          ${RegistrationFields.accountNumber} $textType,
+          ${RegistrationFields.photo} $textType,
+          ${RegistrationFields.signature} $textType,
+          ${RegistrationFields.attachment} $textType
         )
       '''
     );
+
   }
 
   Future<Login> create(Login login) async{
@@ -59,6 +105,14 @@ class McbpDatabase{
     final id = await db.insert(tableLogin, login.toJson());
 
     return login.copy(id:id);
+  }
+
+  Future<Map<String, Object?>> createRegistration(Registration registration) async{
+    final db = await instance.database;
+    
+    final id = await db.insert(tableRegistration, registration.toJson());
+
+    return registration.toJson();
   }
 
   Future<Login?> loginAuth(String userId, String pass) async{

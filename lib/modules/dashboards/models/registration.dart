@@ -1,4 +1,4 @@
-final String tableRegistration = 'registration';
+const String tableRegistration = 'registration';
 
 class RegistrationFields{
   static final String id = '_id';

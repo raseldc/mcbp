@@ -41,6 +41,8 @@ dependencies:
   blurrycontainer: ^0.1.0
   image_picker: ^0.8.4+11
   permission_handler: ^9.2.0
+  rflutter_alert: ^2.0.4
+  http: ^0.13.4
 
 
 
