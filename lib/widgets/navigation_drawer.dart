@@ -12,7 +12,7 @@ class NavigationDrawerWidget extends StatelessWidget {
     final name = 'Pijush Sukanta';
     final email = 'pijushsukanta.com';
     final urlImage =
-        'https://lh3.googleusercontent.com/ogw/ADea4I5_vRBhDeBkgFIBObkSIiTSHf3riBRIt9EQmz1bdVw=s32-c-mo';
+        'http://103.181.42.142:8001/imlma/resources/img/mowca_logo5.png';
 
     return Drawer(
       child: Material(
@@ -52,12 +52,6 @@ class NavigationDrawerWidget extends StatelessWidget {
           
                   Divider(color: Colors.white70),
                   const SizedBox(height: 24),
-                  buildMenuItem(
-                    text: 'Divisions',
-                    icon: Icons.favorite_border,
-                    onClicked: () => selectedItem(context, 1),
-                  ),
-                  const SizedBox(height: 16),
                   
                 ],
               ),
@@ -75,35 +69,10 @@ class NavigationDrawerWidget extends StatelessWidget {
     required VoidCallback onClicked,
   }) =>
       InkWell(
-        onTap: onClicked,
+        onTap: (){},
         child: Container(
           padding: padding.add(EdgeInsets.symmetric(vertical: 40)),
-          child: Row(
-            children: [
-              CircleAvatar(radius: 30, backgroundImage: NetworkImage(urlImage)),
-              SizedBox(width: 20),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    name,
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    email,
-                    style: TextStyle(fontSize: 14, color: Colors.white),
-                  ),
-                ],
-              ),
-              Spacer(),
-              CircleAvatar(
-                radius: 24,
-                backgroundColor: Color.fromRGBO(30, 60, 168, 1),
-                child: Icon(Icons.add_comment_outlined, color: Colors.white),
-              )
-            ],
-          ),
+          child: Image(image: AssetImage('assets/images/img.png'))
         ),
       );
 

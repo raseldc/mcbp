@@ -486,8 +486,8 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
               signature: basename(confirmationImage?.path??""),
             )
           ).then((result){
-              showToast(context, "Success full");
-              register();
+              print("$result");
+              register(context);
           }).catchError((error){
               print("$error");
               showToast(context, "$error");
@@ -496,9 +496,9 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
 
   }
 
-  Future<http.Response> register() {
-    return http.post(
-      Uri.parse('https://jsonplaceholder.typicode.com/albums'),
+  register(context) async{
+    var response = await http.post(
+      Uri.parse('http://103.181.42.142:8001/imlma/api/applicantion/save'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -548,6 +548,14 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
         'signature': basename(confirmationImage?.path??""),
       }),
     );
+
+    if (response.statusCode==200){
+      print("$response");
+      onBasicAlertPressed(context,"Registration Status", "$response");
+    }else{
+      print("$response");
+      onBasicAlertPressed(context,"Registration Status", "$response");
+    }
   }
 
   @override
@@ -565,7 +573,7 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
             centerTitle: true,
             backgroundColor: Colors.blueGrey,
           ),
-        body: SingleChildScrollView(
+        body: (list.isNotEmpty)? SingleChildScrollView(
           
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -1977,6 +1985,8 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                 ]
               ),
             )
+        ):const Center(
+          child: CircularProgressIndicator(),
         ),
       ), 
     );
