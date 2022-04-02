@@ -65,6 +65,9 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
   File? tempImage;
   File? signatureImage;
   File? confirmationImage;
+  String? tempImageBytes;
+  String? signatureImageBytes;
+  String? confirmationImageBytes;
 
   List<Division> divisionList = [];
   List<District> districtList = [];
@@ -329,8 +332,10 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
       try{
         final ImagePicker _picker = ImagePicker();
         final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+        confirmationImageBytes = base64Encode(File(image!.path).readAsBytesSync());
         setState(() {
           confirmationImage = File(image!.path);
+          
         });
       }on PlatformException catch (e){
         print("Faild $e");
@@ -505,47 +510,47 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
       body: jsonEncode(<String, String>{
         'nationalId': _nid.text,
         'birthDate': "",
-        'personalNameInBangla': _nameInBangla.text,
-        'personalNameInEnglish': _nameInEnglish.text,
-        'personalFatherName': _fatherName.text,
-        'personalMotherName': _motherName.text,
-        'personalHusbandName': _husbandName.text,
-        'personalNickName': _nickName.text,
-        'personalBirthPlace': personalDistrict,
-        'personalReligeon' : religion,
-        'personalMobileNo': _mobileNumber.text,
-        'personalEducation': _education.text,
-        'personalBloodGroup': selectedBood,
-        'personalMaritialStatus': selectedMaritialStatus,
-        'presentDivision': selectedDivision!.nameInBangla,
-        'presentDistrict': selectedDistrict!.nameInBangla,
-        'presentSubDistrict': selectedUpazilla!.nameInBangla,
-        'presentUnion': selectedUnion!.nameInBangla,
-        'presentVillage': selectedVillage!.nameInBangla,
-        'presentPostCode': _postCode.text,
-        'presentStreet': _street.text,
-        'permanentDivision': permanentSelectedDivision!.nameInBangla,
-        'permanentDistrict': permanentSelectedDistrict!.nameInBangla,
-        'permanentSubDistrict': permanentSelectedUpazilla!.nameInBangla,
-        'permanentUnion': permanentSelectedUnion!.nameInBangla,
-        'permanentVillage': permanentSelectedVillage!.nameInBangla,
-        'permanentPostCode': _permanentPostCode.text,
-        'permanentStreet': _permanentStreet.text,
-        'propertyAmount': selectedAsset,
-        'familyHeadOccupation': selectedheadOccupation,
-        'husbandMonthlyIncome': selectedHusbandMonthlyIncome,
-        'sanitationFacility': selectedSanitaionState,
-        'electricityFacility': selectedelectricityState,
-        'electricityFan': selectedElectricFan,
-        'tubewelFacility': selectedTubewel,
-        'bedRoomWall': selectedInterior,
-        'disablePerson': selectedDisablePerson,
-        'conceptionPriod': selectedConception,
+        'personalNameInBangla': utf8.encode(_nameInBangla.text).toString(),
+        'personalNameInEnglish': utf8.encode(_nameInEnglish.text).toString(),
+        'personalFatherName': utf8.encode(_fatherName.text).toString(),
+        'personalMotherName': utf8.encode(_motherName.text).toString(),
+        'personalHusbandName': utf8.encode(_husbandName.text).toString(),
+        'personalNickName': utf8.encode(_nickName.text).toString(),
+        'personalBirthPlace': utf8.encode(personalDistrict).toString(),
+        'personalReligeon' : utf8.encode(religion).toString(),
+        'personalMobileNo': utf8.encode(_mobileNumber.text).toString(),
+        'personalEducation': utf8.encode(_education.text).toString(),
+        'personalBloodGroup': utf8.encode(selectedBood).toString(),
+        'personalMaritialStatus': utf8.encode(selectedMaritialStatus).toString(),
+        'presentDivision': utf8.encode(selectedDivision!.nameInBangla).toString(),
+        'presentDistrict': utf8.encode(selectedDistrict!.nameInBangla).toString(),
+        'presentSubDistrict': utf8.encode(selectedUpazilla!.nameInBangla).toString(),
+        'presentUnion': utf8.encode(selectedUnion!.nameInBangla).toString(),
+        'presentVillage': utf8.encode(selectedVillage!.nameInBangla).toString(),
+        'presentPostCode': utf8.encode(_postCode.text).toString(),
+        'presentStreet': utf8.encode(_street.text).toString(),
+        'permanentDivision': utf8.encode(permanentSelectedDivision!.nameInBangla).toString(),
+        'permanentDistrict': utf8.encode(permanentSelectedDistrict!.nameInBangla).toString(),
+        'permanentSubDistrict': utf8.encode(permanentSelectedUpazilla!.nameInBangla).toString(),
+        'permanentUnion': utf8.encode(permanentSelectedUnion!.nameInBangla).toString(),
+        'permanentVillage': utf8.encode(permanentSelectedVillage!.nameInBangla).toString(),
+        'permanentPostCode': utf8.encode(_permanentPostCode.text).toString(),
+        'permanentStreet': utf8.encode(_permanentStreet.text).toString(),
+        'propertyAmount': utf8.encode(selectedAsset).toString(),
+        'familyHeadOccupation': utf8.encode(selectedheadOccupation).toString(),
+        'husbandMonthlyIncome': utf8.encode(selectedHusbandMonthlyIncome).toString(),
+        'sanitationFacility': utf8.encode(selectedSanitaionState).toString(),
+        'electricityFacility': utf8.encode(selectedelectricityState).toString(),
+        'electricityFan': utf8.encode(selectedElectricFan).toString(),
+        'tubewelFacility': utf8.encode(selectedTubewel).toString(),
+        'bedRoomWall': utf8.encode(selectedInterior).toString(),
+        'disablePerson': utf8.encode(selectedDisablePerson).toString(),
+        'conceptionPriod': utf8.encode(selectedConception).toString(),
         'conceptionTimeInWeek': "",
         'accountName': '', 'accountNumber': '', 'paymentType': '',
-        'attachment': basename(tempImage?.path??""),
-        'photo': basename(signatureImage?.path??""),
-        'signature': basename(confirmationImage?.path??""),
+        'attachment': base64Encode(File(tempImage!.path).readAsBytesSync()),
+        'photo': base64Encode(File(signatureImage!.path).readAsBytesSync()),
+        'signature': base64Encode(File(confirmationImage!.path).readAsBytesSync()),
       }),
     );
 
