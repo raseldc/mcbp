@@ -88,12 +88,14 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: assets/fonts/MPLUSRounded1c-Regular.ttf
-          weight: 700
         - asset: assets/fonts/MPLUSRounded1c-Bold.ttf
-          weight: 600
+          weight: 700
         - asset: assets/fonts/MPLUSRounded1c-Medium.ttf
           weight: 500
+        - asset: assets/fonts/MPLUSRounded1c-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/MPLUSRounded1c-Light.ttf
+          weight: 300
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:mcbp/modules/dashboards/models/login.dart';
+import 'package:mcbp/domain/model/login.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../modules/dashboards/models/registration.dart';
+import '../../domain/model/registration.dart';
 
 class McbpDatabase{
   static final McbpDatabase instance = McbpDatabase._init();

@@ -1,5 +1,5 @@
 class AppRoutes{
   static String loginRoute = "/login";
   static String homeRoute = "/home";
-   static String registerRoute = "/register";
+  static String registerRoute = "/register";
 }

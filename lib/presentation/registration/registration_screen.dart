@@ -9,15 +9,15 @@ import 'package:mcbp/widgets/navigation_drawer.dart';
 import 'package:path/path.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../../utils/helpers/string_resource.dart';
-import '../../../utils/services/mcbp_db.dart';
-import '../models/district.dart';
-import '../models/division.dart';
-import '../models/registration.dart';
-import '../models/union.dart';
-import '../models/upazilla.dart';
-import '../models/village.dart';
-import 'home_page.dart';
+import '../resources/string_resource.dart';
+import '../../utils/services/mcbp_db.dart';
+import '../../domain/model/district.dart';
+import '../../domain/model/division.dart';
+import '../../domain/model/registration.dart';
+import '../../domain/model/union.dart';
+import '../../domain/model/upazilla.dart';
+import '../../domain/model/village.dart';
+import '../home/home_page.dart';
 import 'package:http/http.dart' as http;
 
 class RegistraionScreen extends StatefulWidget {

@@ -6,8 +6,8 @@ import 'package:flutter/services.dart';
 import 'package:mcbp/widgets/district_widget.dart';
 
 import '../../../widgets/navigation_drawer.dart';
-import '../models/district.dart';
-import 'home_page.dart';
+import '../../../domain/model/district.dart';
+import '../../../presentation/home/home_page.dart';
 
 
 class DistrictScreen extends StatefulWidget {

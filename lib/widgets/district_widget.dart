@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mcbp/modules/dashboards/models/district.dart';
+import 'package:mcbp/domain/model/district.dart';
 
 class ItemWidget extends StatelessWidget {
   final District item;

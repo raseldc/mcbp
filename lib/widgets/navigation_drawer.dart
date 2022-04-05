@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:mcbp/modules/dashboards/screens/dashboard_screen.dart';
-import 'package:mcbp/modules/dashboards/screens/registration_screen.dart';
+import 'package:mcbp/presentation/dashboard/dashboard_screen.dart';
+import 'package:mcbp/presentation/registration/registration_screen.dart';
 
 import '../modules/dashboards/screens/district_screen.dart';
 import '../modules/dashboards/screens/user_screen.dart';

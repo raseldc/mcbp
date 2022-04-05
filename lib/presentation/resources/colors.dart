@@ -1,7 +1,12 @@
 import 'package:flutter/widgets.dart';
 
 class ColorManager{
-  static Color primary = HexColor.fromHex("42C2FF");
+  static Color primary = HexColor.fromHex("4D96FF");
+  static Color lightGrey = HexColor.fromHex("D1D1D1");
+  static Color midGrey = HexColor.fromHex("7897AB");
+  static Color darkGrey = HexColor.fromHex("7897AB");
+  static Color errorColor = HexColor.fromHex("F05454");
+  static Color cardColor = HexColor.fromHex("F7F7F7");
 }
 
 extension HexColor on Color{

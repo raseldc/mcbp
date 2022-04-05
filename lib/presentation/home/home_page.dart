@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:mcbp/config/routes/mcbp_routes.dart';
-import 'package:mcbp/modules/dashboards/screens/dashboard_screen.dart';
-import 'package:mcbp/modules/dashboards/screens/registration_screen.dart';
-import 'package:mcbp/utils/helpers/string_resource.dart';
+import 'package:mcbp/presentation/resources/mcbp_routes.dart';
+import 'package:mcbp/presentation/dashboard/dashboard_screen.dart';
+import 'package:mcbp/presentation/registration/registration_screen.dart';
+import 'package:mcbp/presentation/resources/string_resource.dart';
 import 'package:mcbp/widgets/navigation_drawer.dart';
 // import 'package:sizer/sizer.dart';
 // import 'package:blurrycontainer/blurrycontainer.dart';
