@@ -7,6 +7,7 @@ class ColorManager{
   static Color darkGrey = HexColor.fromHex("7897AB");
   static Color errorColor = HexColor.fromHex("F05454");
   static Color cardColor = HexColor.fromHex("F7F7F7");
+  static Color greenColor = HexColor.fromHex("4E9F3D");
 }
 
 extension HexColor on Color{

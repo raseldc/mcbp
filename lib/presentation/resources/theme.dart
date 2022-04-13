@@ -16,7 +16,7 @@ ThemeData getApplicationTheme(){
     // card view theme
     cardTheme: CardTheme(
       color: ColorManager.cardColor,
-      shadowColor: ColorManager.lightGrey,
+      shadowColor: ColorManager.darkGrey,
       elevation: AppSize.s4,
     ),
 
@@ -26,7 +26,7 @@ ThemeData getApplicationTheme(){
       color: ColorManager.midGrey,
       elevation: AppSize.s4,
       shadowColor: ColorManager.lightGrey,
-      titleTextStyle: getMediumStyle(color: ColorManager.lightGrey,fontSize: FontSize.s16),
+      titleTextStyle: getMediumStyle(color: ColorManager.lightGrey,fontSize: FontSize.s20),
     ),
     // Button theme
     buttonTheme: ButtonThemeData(
@@ -40,8 +40,8 @@ ThemeData getApplicationTheme(){
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         textStyle: getRegularStyle(color: ColorManager.darkGrey),
-        primary: ColorManager.lightGrey,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s12))
+        primary: ColorManager.darkGrey,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppSize.s8))
       )
     ),
     //Text Theme
@@ -50,8 +50,40 @@ ThemeData getApplicationTheme(){
       subtitle1: getMediumStyle(color: ColorManager.midGrey,fontSize: FontSize.s14),
       caption: getRegularStyle(color: ColorManager.darkGrey),
       bodyText1: getRegularStyle(color: ColorManager.darkGrey)
-    )
+    ),
     // Input Decoration Theme
+    inputDecorationTheme: InputDecorationTheme(
+      contentPadding: const EdgeInsets.all(AppPadding.p8),
+      //hint style
+      hintStyle: getRegularStyle(color: ColorManager.darkGrey),
+      labelStyle: getMediumStyle(color: ColorManager.midGrey),
+      errorStyle: getRegularStyle(color: ColorManager.errorColor),
+      // enabled Border
+      enabledBorder:  OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.lightGrey,width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      // Focus Border
+      focusedBorder:  OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.primary,width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
+      //Error Color
+      errorBorder:  OutlineInputBorder(
+        borderSide: BorderSide(color: ColorManager.errorColor,width: AppSize.s1_5),
+        borderRadius: const BorderRadius.all(Radius.circular(AppSize.s8)),
+      ),
 
+    ),
+
+    //Box Decoration
+
+  );
+}
+
+BoxDecoration getBoxDecoration(){
+  return BoxDecoration(
+      borderRadius: BorderRadius.circular(AppSize.s8),
+      border: Border.all(color: ColorManager.lightGrey,width: AppSize.s1_5)
   );
 }

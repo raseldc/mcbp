@@ -3,6 +3,10 @@
 class StringResource{
   static const String motSokrioVatavogi = "মোট সক্রিয় ভাতাভোগী";
   static const String religeon = "ধর্ম";
+  static const String abedon = "আবেদন";
+  static const String dashboardSuparish = "কমিটি কর্তৃক সুপারিশকৃত";
+  static const String mohilaOdhidoptar = "মহিলা বিষয়ক অধিদপ্তর";
+
 
   // আর্থ-সামাজিক তথ্য
   static const String financialAndSocialState = "আর্থ-সামাজিক তথ্য";

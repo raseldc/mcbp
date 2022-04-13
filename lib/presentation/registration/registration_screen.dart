@@ -4,6 +4,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:mcbp/presentation/resources/colors.dart';
+import 'package:mcbp/presentation/resources/style.dart';
+import 'package:mcbp/presentation/resources/theme.dart';
+import 'package:mcbp/presentation/resources/values.dart';
 import 'package:mcbp/utils/helpers/helper.dart';
 import 'package:mcbp/widgets/navigation_drawer.dart';
 import 'package:path/path.dart';
@@ -571,1427 +575,1357 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
         await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomePage()),((Route<dynamic> route) => false));
         return true;
       },
-      child: Scaffold(
-        drawer: NavigationDrawerWidget(),
-        appBar: AppBar(
-            title: Text('আবেদন'),
-            centerTitle: true,
-            backgroundColor: Colors.blueGrey,
-          ),
-        body: (list.isNotEmpty)? SingleChildScrollView(
-          
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(children: [
-                Align(
-                    alignment: Alignment.centerRight,child: ElevatedButton(onPressed: ()=>saveRegistration(context), child: Text("আবেদন"))),
-                SizedBox(
-                    height: 10.0,
-                  ),//Personal Info Card
-                  Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    margin: EdgeInsets.zero,
-                    child: (list.isNotEmpty)? ExpansionTile(
-                      initiallyExpanded: true,
-                      title: Text("ব্যক্তিগত তথ্য"),
-                      childrenPadding: EdgeInsets.all(8.0),
-                      children: [
-                        TextFormField(
-                          controller: _nid,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "জাতীয় পরিচয় পত্র নং*",
-                            labelText: "জাতীয় পরিচয় পত্র নং*",
-                          ),
-                          onChanged: (value){
-                              setState(() {
-                                
-                              });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "জন্ম তারিখ*",
-                            labelText: "জন্ম তারিখ*",
-                          ),
-                          onChanged: (value){
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: getApplicationTheme(),
+        home: Scaffold(
+          drawer: NavigationDrawerWidget(),
+          appBar: AppBar(
+              title: Text(StringResource.abedon),
+            ),
+          body: (list.isNotEmpty)? SingleChildScrollView(
 
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _nameInBangla,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "নাম (বাংলা)*",
-                            labelText: "নাম (বাংলা)",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _nameInEnglish,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "নাম (ইংরেজি)*",
-                            labelText: "নাম (ইংরেজি)",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _fatherName,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "পিতার নাম*",
-                            labelText: "পিতার নাম",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _motherName,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "মাতার নাম*",
-                            labelText: "মাতার নাম",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _husbandName,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "স্বামীর নাম*",
-                            labelText: "স্বামীর নাম",
-                          ),
-                          onChanged: (value){
-
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _nickName,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "যে নামে পরিচিত",
-                            labelText: "যে নামে পরিচিত",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: personalDistrict,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: list.map((items) {
-                              return DropdownMenuItem(
-                                value: items.nameInBangla,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue) { 
-                              setState(() {
-                                personalDistrict = newValue!;
-                              });
-                            },
-                          ),
-                      )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: religion,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: items.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child: Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue) { 
-                              setState(() {
-                                religion = newValue!;
-                              });
-                            },
-                          ),
-                      )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _mobileNumber,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "মোবাইল নং",
-                            labelText: "মোবাইল নং",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _education,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "শিক্ষাগত যোগ্যতা",
-                            labelText: "শিক্ষাগত যোগ্যতা",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.grey,width: 1)
-                            ),
-                            padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                            child: DropdownButtonHideUnderline(child: DropdownButton(
-                              
-                              // Initial Value
-                              value: selectedBood,
-                              isExpanded: true,
-                              // Down Arrow Icon
-                              icon: const Icon(Icons.keyboard_arrow_down),    
-                                
-                              // Array list of items
-                              items: bloodGroup.map((String item) {
-                                return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item),
-                                );
-                              }).toList(),
-                              // After selecting the desired option,it will
-                              // change button value to selected value
-                              onChanged: (String? newValue) { 
-                                setState(() {
-                                  selectedBood = newValue!;
-                                });
-                              },
-                            ),
-                        )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(color: Colors.grey,width: 1)
-                            ),
-                            padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                            child: DropdownButtonHideUnderline(child: DropdownButton(
-                              // Initial Value
-                              value: selectedMaritialStatus,
-                              isExpanded: true,
-                              // Down Arrow Icon
-                              icon: const Icon(Icons.keyboard_arrow_down),    
-                                
-                              // Array list of items
-                              items: matritialStatus.map((String item) {
-                                return DropdownMenuItem(
-                                  value: item,
-                                  child: Text(item),
-                                );
-                              }).toList(),
-                              // After selecting the desired option,it will
-                              // change button value to selected value
-                              onChanged: (String? newValue) { 
-                                setState(() {
-                                  selectedMaritialStatus = newValue!;
-                                });
-                              },
-                            ),
-                        )
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(children: [
+                  Align(
+                      alignment: Alignment.centerRight,child: ElevatedButton(onPressed: ()=>saveRegistration(context), child: Text("আবেদন"))),
+                  SizedBox(
+                      height: 10.0,
+                    ),//Personal Info Card
+                    Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
+                      clipBehavior: Clip.antiAlias,
+                      margin: EdgeInsets.zero,
+                      child: (list.isNotEmpty)? ExpansionTile(
+                        initiallyExpanded: true,
+                        title: Text("ব্যক্তিগত তথ্য"),
+                        childrenPadding: EdgeInsets.all(8.0),
+                        children: [
+                          TextFormField(
+                            controller: _nid,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "জাতীয় পরিচয় পত্র নং*",
+                              labelText: "জাতীয় পরিচয় পত্র নং*",
+                            ),
+                            onChanged: (value){
+                                setState(() {
 
-                      ],
-                    ):const Center(
-                                child: CircularProgressIndicator(),
+                                });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "জন্ম তারিখ*",
+                              labelText: "জন্ম তারিখ*",
+                            ),
+                            onChanged: (value){
+
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _nameInBangla,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "নাম (বাংলা)*",
+                              labelText: "নাম (বাংলা)",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _nameInEnglish,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "নাম (ইংরেজি)*",
+                              labelText: "নাম (ইংরেজি)",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _fatherName,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "পিতার নাম*",
+                              labelText: "পিতার নাম",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _motherName,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "মাতার নাম*",
+                              labelText: "মাতার নাম",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _husbandName,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "স্বামীর নাম*",
+                              labelText: "স্বামীর নাম",
+                            ),
+                            onChanged: (value){
+
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _nickName,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "যে নামে পরিচিত",
+                              labelText: "যে নামে পরিচিত",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: personalDistrict,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: list.map((items) {
+                                return DropdownMenuItem(
+                                  value: items.nameInBangla,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  personalDistrict = newValue!;
+                                });
+                              },
+                            ),
+                        )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: religion,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: items.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child: Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  religion = newValue!;
+                                });
+                              },
+                            ),
+                        )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _mobileNumber,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "মোবাইল নং",
+                              labelText: "মোবাইল নং",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _education,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "শিক্ষাগত যোগ্যতা",
+                              labelText: "শিক্ষাগত যোগ্যতা",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: getBoxDecoration(),
+                              padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                              child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                                // Initial Value
+                                value: selectedBood,
+                                isExpanded: true,
+                                // Down Arrow Icon
+                                icon: const Icon(Icons.keyboard_arrow_down),
+
+                                // Array list of items
+                                items: bloodGroup.map((String item) {
+                                  return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                                // After selecting the desired option,it will
+                                // change button value to selected value
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedBood = newValue!;
+                                  });
+                                },
                               ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),//Present Address
-                  Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
+                          )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: getBoxDecoration(),
+                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                              child: DropdownButtonHideUnderline(child: DropdownButton(
+                                // Initial Value
+                                value: selectedMaritialStatus,
+                                isExpanded: true,
+                                // Down Arrow Icon
+                                icon: const Icon(Icons.keyboard_arrow_down),
+
+                                // Array list of items
+                                items: matritialStatus.map((String item) {
+                                  return DropdownMenuItem(
+                                    value: item,
+                                    child: Text(item),
+                                  );
+                                }).toList(),
+                                // After selecting the desired option,it will
+                                // change button value to selected value
+                                onChanged: (String? newValue) {
+                                  setState(() {
+                                    selectedMaritialStatus = newValue!;
+                                  });
+                                },
+                              ),
+                          )
+                        ),
+
+                        ],
+                      ):const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
                     ),
-                    clipBehavior: Clip.antiAlias,
-                    margin: EdgeInsets.zero,
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      title: Text("বর্তমান ঠিকানা"),
-                      childrenPadding: EdgeInsets.all(8.0),
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("বিভাগ"),
-                        ),
+                    SizedBox(
+                      height: 10.0,
+                    ),//Present Address
+                    Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      margin: EdgeInsets.zero,
+                      child: ExpansionTile(
+                        initiallyExpanded: true,
+                        title: Text("বর্তমান ঠিকানা"),
+                        childrenPadding: EdgeInsets.all(8.0),
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("বিভাগ"),
+                          ),
 
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedDivision,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: divisionList.map((items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Division? newValue){ 
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
 
-                              setState(() {
-                                changeDistrist(newValue);
-                                selectedDivision = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("জেলা"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedDistrict,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: queryDistrictList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (District? newValue){ 
-                              setState(() {
-                                changeUpazilla(newValue);
-                                selectedDistrict = newValue!;
-                              });
-                            },
-                          ),
-                      )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("উপজেলা"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedUpazilla,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: queryUpazillaList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Upazilla? newValue){ 
-                              setState(() {
-                                changeUnion(newValue);
-                                selectedUpazilla = newValue!;
-                              });
-                            },
-                          ),
-                          )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("ইউনিয়ন"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedUnion,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: queryUnionList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Union? newValue){ 
-                              setState(() {
-                                changeVillage(newValue);
-                                selectedUnion = newValue!;
-                              });
-                            },
-                          ),
-                          )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("গ্রাম"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedVillage,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: queryVillageList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Village? newValue){ 
-                              setState(() {
-                                selectedVillage = newValue!;
-                              });
-                            },
-                          ),
-                          )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _postCode,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "পোস্ট কোড",
-                            labelText: "পোস্ট কোড",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _street,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "রাস্তা/ব্লক/সেক্টর",
-                            labelText: "রাস্তা/ব্লক/সেক্টর",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
+                              // Initial Value
+                              value: selectedDivision,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: divisionList.map((items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Division? newValue){
+
+                                setState(() {
+                                  changeDistrist(newValue);
+                                  selectedDivision = newValue!;
+                                });
+
+                              },
+                            ),
                         )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("জেলা"),
+                          ),
 
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedDistrict,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: queryDistrictList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (District? newValue){
+                                setState(() {
+                                  changeUpazilla(newValue);
+                                  selectedDistrict = newValue!;
+                                });
+                              },
+                            ),
+                        )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("উপজেলা"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedUpazilla,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: queryUpazillaList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Upazilla? newValue){
+                                setState(() {
+                                  changeUnion(newValue);
+                                  selectedUpazilla = newValue!;
+                                });
+                              },
+                            ),
+                            )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("ইউনিয়ন"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedUnion,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: queryUnionList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Union? newValue){
+                                setState(() {
+                                  changeVillage(newValue);
+                                  selectedUnion = newValue!;
+                                });
+                              },
+                            ),
+                            )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("গ্রাম"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedVillage,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: queryVillageList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Village? newValue){
+                                setState(() {
+                                  selectedVillage = newValue!;
+                                });
+                              },
+                            ),
+                            )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _postCode,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "পোস্ট কোড",
+                              labelText: "পোস্ট কোড",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _street,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "রাস্তা/ব্লক/সেক্টর",
+                              labelText: "রাস্তা/ব্লক/সেক্টর",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          )
+
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),//permanent Address,
+                    Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      margin: EdgeInsets.zero,
+                      child: ExpansionTile(
+                        initiallyExpanded: true,
+                        title: Text("স্থায়ী ঠিকানা"),
+                        childrenPadding: EdgeInsets.all(8.0),
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("বিভাগ"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: permanentSelectedDivision,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: permanentDivisionList.map((items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Division? newValue){
+
+                                setState(() {
+                                  permanentChangeDistrist(newValue);
+                                  permanentSelectedDivision = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("জেলা"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: permanentSelectedDistrict,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: querypermanentDistrictList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (District? newValue){
+                                setState(() {
+                                  permanentChangeUpazilla(newValue);
+                                  permanentSelectedDistrict = newValue!;
+                                });
+                              },
+                            ),
+                        )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("উপজেলা"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: permanentSelectedUpazilla,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: querypermanentUpazillaList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Upazilla? newValue){
+                                setState(() {
+                                  permanentChangeUnion(newValue);
+                                  permanentSelectedUpazilla = newValue!;
+                                });
+                              },
+                            ),
+                            )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("ইউনিয়ন"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: permanentSelectedUnion,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: querypermanentUnionList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Union? newValue){
+                                setState(() {
+                                  permanentChangeVillage(newValue);
+                                  permanentSelectedUnion = newValue!;
+                                });
+                              },
+                            ),
+                            )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("গ্রাম"),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: permanentSelectedVillage,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: querypermanentVillageList.map((items) {
+
+                                return DropdownMenuItem(
+                                  value:  items,
+                                  child:  Text(items.nameInBangla),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (Village? newValue){
+                                setState(() {
+                                  permanentSelectedVillage = newValue!;
+                                });
+                              },
+                            ),
+                            )
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _permanentPostCode,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "পোস্ট কোড",
+                              labelText: "পোস্ট কোড",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            height: 20.0,
+                          ),
+                          TextFormField(
+                            controller: _permanentStreet,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              suffixIcon: Icon(Icons.person),
+                              hintText: "রাস্তা/ব্লক/সেক্টর",
+                              labelText: "রাস্তা/ব্লক/সেক্টর",
+                            ),
+                            onChanged: (value){
+                              setState(() {
+
+                              });
+                            },
+                          )
+
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),//Social Financial
+                    Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      margin: EdgeInsets.zero,
+                      child: ExpansionTile(
+                        initiallyExpanded: true,
+                        title: const Text(StringResource.financialAndSocialState),
+                        childrenPadding: const EdgeInsets.all(8.0),
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.assetAmount),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedAsset,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.assetAmountList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedAsset = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.headOccupation),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedheadOccupation,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.headOccupationList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedheadOccupation = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+
+                        const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.husbandMonthlyIncome),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedHusbandMonthlyIncome,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.husbandMonthlyIncomeList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedHusbandMonthlyIncome = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.sanitaryState),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedSanitaionState,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.yesOrNo.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedSanitaionState = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.electricityState),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedelectricityState,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.yesOrNo.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedelectricityState = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.electricFan),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedElectricFan,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.yesOrNo.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedElectricFan = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.tubewel),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedTubewel,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.yesOrNo.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedTubewel = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.livingRoomSate),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedInterior,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.livingRoomStateList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedInterior = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.disablePerson),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedDisablePerson,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.disablePersonList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedDisablePerson = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                        ]
+                      )
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),//Health
+                    Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      margin: EdgeInsets.zero,
+                      child: ExpansionTile(
+                        initiallyExpanded: true,
+                        title: const Text(StringResource.healthState),
+                        childrenPadding: const EdgeInsets.all(8.0),
+                        children: [
+                          const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(StringResource.conceptionTerm),
+                          ),
+
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            decoration: getBoxDecoration(),
+                            padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                            child: DropdownButtonHideUnderline(child: DropdownButton(
+
+                              // Initial Value
+                              value: selectedConception,
+                              isExpanded: true,
+                              // Down Arrow Icon
+                              icon: const Icon(Icons.keyboard_arrow_down),
+
+                              // Array list of items
+                              items: StringResource.conceptionTermList.map((String items) {
+                                return DropdownMenuItem(
+                                  value: items,
+                                  child:  Text(items),
+                                );
+                              }).toList(),
+                              // After selecting the desired option,it will
+                              // change button value to selected value
+                              onChanged: (String? newValue){
+
+                                setState(() {
+                                  selectedConception = newValue!;
+                                });
+
+                              },
+                            ),
+                        )
+                          ),
+                          const SizedBox(
+                            height: 20.0,
+                          ),
+
+                        ]
+                      )
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),//File Upload
+                    Column(
+                      children: [
+                        Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          margin: EdgeInsets.zero,
+                          child: ExpansionTile(
+                            initiallyExpanded: true,
+                            title: const Text("ছবি/স্বাক্ষর"),
+                            childrenPadding: const EdgeInsets.all(8.0),
+                            children: [
+                              Column(
+                                children:[
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("ছবি",style: TextStyle(fontWeight: FontWeight.w600),),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Row(
+
+                                      children: [
+                                        tempImage != null?Image.file(tempImage!,width: MediaQuery.of(context).size.width/1.75,height: MediaQuery.of(context).size.height/6,fit: BoxFit.cover,) : Image.asset("assets/images/login_app_img.png",width: MediaQuery.of(context).size.width/3,height: MediaQuery.of(context).size.height/5,fit: BoxFit.cover),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 18),
+                                          child: ElevatedButton(onPressed:()=> photoPicker(), child: Text("browse")),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 20.0,
+                                  ),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("স্বাক্ষর/টিপসই",style: TextStyle(fontWeight: FontWeight.w600),),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Row(
+
+                                      children: [
+                                        signatureImage != null?Image.file(signatureImage!,width: MediaQuery.of(context).size.width/1.75,height: MediaQuery.of(context).size.height/6,fit: BoxFit.cover,) : Image.asset("assets/images/login_app_img.png",width: MediaQuery.of(context).size.width/3,height: MediaQuery.of(context).size.height/5,fit: BoxFit.cover),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 18),
+                                          child: ElevatedButton(onPressed:()=> signaturePicker(), child: Text("browse")),
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ]
+                              )
+
+                            ]
+                          )
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          margin: EdgeInsets.zero,
+                          child: ExpansionTile(
+                            initiallyExpanded: true,
+                            title: const Text("সংযু‌ক্তি"),
+                            childrenPadding: const EdgeInsets.all(8.0),
+                            children: [
+                              Column(
+                                children:[
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text("ছবি",style: TextStyle(fontWeight: FontWeight.w600),),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top:8.0),
+                                    child: Row(
+
+                                      children: [
+                                        confirmationImage != null?Image.file(confirmationImage!,width: MediaQuery.of(context).size.width/1.75,height: MediaQuery.of(context).size.height/6,fit: BoxFit.cover,) : Image.asset("assets/images/login_app_img.png",width: MediaQuery.of(context).size.width/3,height: MediaQuery.of(context).size.height/5,fit: BoxFit.cover),
+                                        Padding(
+                                          padding: const EdgeInsets.only(left: 18),
+                                          child: ElevatedButton(onPressed:()=> confirmPicker(), child: Text("browse")),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+
+                                ]
+                              )
+
+                            ]
+                          )
+                        )
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),//permanent Address,
-                  Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    margin: EdgeInsets.zero,
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      title: Text("স্থায়ী ঠিকানা"),
-                      childrenPadding: EdgeInsets.all(8.0),
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("বিভাগ"),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: permanentSelectedDivision,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: permanentDivisionList.map((items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Division? newValue){ 
-
-                              setState(() {
-                                permanentChangeDistrist(newValue);
-                                permanentSelectedDivision = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("জেলা"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: permanentSelectedDistrict,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: querypermanentDistrictList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (District? newValue){ 
-                              setState(() {
-                                permanentChangeUpazilla(newValue);
-                                permanentSelectedDistrict = newValue!;
-                              });
-                            },
-                          ),
-                      )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("উপজেলা"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: permanentSelectedUpazilla,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: querypermanentUpazillaList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Upazilla? newValue){ 
-                              setState(() {
-                                permanentChangeUnion(newValue);
-                                permanentSelectedUpazilla = newValue!;
-                              });
-                            },
-                          ),
-                          )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("ইউনিয়ন"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: permanentSelectedUnion,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: querypermanentUnionList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Union? newValue){ 
-                              setState(() {
-                                permanentChangeVillage(newValue);
-                                permanentSelectedUnion = newValue!;
-                              });
-                            },
-                          ),
-                          )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("গ্রাম"),
-                        ),
-                        
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: permanentSelectedVillage,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: querypermanentVillageList.map((items) {
-                              
-                              return DropdownMenuItem(
-                                value:  items,
-                                child:  Text(items.nameInBangla),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (Village? newValue){ 
-                              setState(() {
-                                permanentSelectedVillage = newValue!;
-                              });
-                            },
-                          ),
-                          )
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _permanentPostCode,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "পোস্ট কোড",
-                            labelText: "পোস্ট কোড",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        TextFormField(
-                          controller: _permanentStreet,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            suffixIcon: Icon(Icons.person),
-                            hintText: "রাস্তা/ব্লক/সেক্টর",
-                            labelText: "রাস্তা/ব্লক/সেক্টর",
-                          ),
-                          onChanged: (value){
-                            setState(() {
-                              
-                            });
-                          },
-                        )
-
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),//Social Financial
-                  Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    margin: EdgeInsets.zero,
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      title: const Text(StringResource.financialAndSocialState),
-                      childrenPadding: const EdgeInsets.all(8.0),
-                      children: [
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.assetAmount),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedAsset,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.assetAmountList.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedAsset = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.headOccupation),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedheadOccupation,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.headOccupationList.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedheadOccupation = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                      
-                      const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.husbandMonthlyIncome),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedHusbandMonthlyIncome,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.husbandMonthlyIncomeList.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedHusbandMonthlyIncome = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.sanitaryState),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedSanitaionState,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.yesOrNo.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedSanitaionState = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.electricityState),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedelectricityState,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.yesOrNo.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedelectricityState = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.electricFan),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedElectricFan,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.yesOrNo.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedElectricFan = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.tubewel),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedTubewel,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.yesOrNo.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedTubewel = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.livingRoomSate),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedInterior,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.livingRoomStateList.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedInterior = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.disablePerson),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedDisablePerson,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.disablePersonList.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedDisablePerson = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                      ]
-                    )
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),//Health 
-                  Card(
-                    elevation: 5,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    clipBehavior: Clip.antiAlias,
-                    margin: EdgeInsets.zero,
-                    child: ExpansionTile(
-                      initiallyExpanded: true,
-                      title: const Text(StringResource.healthState),
-                      childrenPadding: const EdgeInsets.all(8.0),
-                      children: [
-                        const Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(StringResource.conceptionTerm),
-                        ),
-
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(color: Colors.grey,width: 1)
-                          ),
-                          padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
-                          child: DropdownButtonHideUnderline(child: DropdownButton(
-                            
-                            // Initial Value
-                            value: selectedConception,
-                            isExpanded: true,
-                            // Down Arrow Icon
-                            icon: const Icon(Icons.keyboard_arrow_down),    
-                              
-                            // Array list of items
-                            items: StringResource.conceptionTermList.map((String items) {
-                              return DropdownMenuItem(
-                                value: items,
-                                child:  Text(items),
-                              );
-                            }).toList(),
-                            // After selecting the desired option,it will
-                            // change button value to selected value
-                            onChanged: (String? newValue){ 
-
-                              setState(() {
-                                selectedConception = newValue!;
-                              });
-                            
-                            },
-                          ),
-                      )
-                        ),
-                        const SizedBox(
-                          height: 20.0,
-                        ),
-                        
-                      ]
-                    )
-                  ),
-                  SizedBox(
-                    height: 10.0,
-                  ),//File Upload
-                  Column(
-                    children: [
-                      Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        margin: EdgeInsets.zero,
-                        child: ExpansionTile(
-                          initiallyExpanded: true,
-                          title: const Text("ছবি/স্বাক্ষর"),
-                          childrenPadding: const EdgeInsets.all(8.0),
-                          children: [
-                            Column(
-                              children:[
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text("ছবি",style: TextStyle(fontWeight: FontWeight.w600),),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:8.0),
-                                  child: Row(
-                                    
-                                    children: [
-                                      tempImage != null?Image.file(tempImage!,width: MediaQuery.of(context).size.width/1.75,height: MediaQuery.of(context).size.height/6,fit: BoxFit.cover,) : Image.asset("assets/images/login_app_img.png",width: MediaQuery.of(context).size.width/3,height: MediaQuery.of(context).size.height/5,fit: BoxFit.cover),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 18),
-                                        child: ElevatedButton(onPressed:()=> photoPicker(), child: Text("browse")),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 20.0,
-                                ),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text("স্বাক্ষর/টিপসই",style: TextStyle(fontWeight: FontWeight.w600),),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:8.0),
-                                  child: Row(
-                                    
-                                    children: [
-                                      signatureImage != null?Image.file(signatureImage!,width: MediaQuery.of(context).size.width/1.75,height: MediaQuery.of(context).size.height/6,fit: BoxFit.cover,) : Image.asset("assets/images/login_app_img.png",width: MediaQuery.of(context).size.width/3,height: MediaQuery.of(context).size.height/5,fit: BoxFit.cover),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 18),
-                                        child: ElevatedButton(onPressed:()=> signaturePicker(), child: Text("browse")),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ]
-                            )
-                            
-                          ]
-                        )
-                      ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        clipBehavior: Clip.antiAlias,
-                        margin: EdgeInsets.zero,
-                        child: ExpansionTile(
-                          initiallyExpanded: true,
-                          title: const Text("সংযু‌ক্তি"),
-                          childrenPadding: const EdgeInsets.all(8.0),
-                          children: [
-                            Column(
-                              children:[
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text("ছবি",style: TextStyle(fontWeight: FontWeight.w600),),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:8.0),
-                                  child: Row(
-                                    
-                                    children: [
-                                      confirmationImage != null?Image.file(confirmationImage!,width: MediaQuery.of(context).size.width/1.75,height: MediaQuery.of(context).size.height/6,fit: BoxFit.cover,) : Image.asset("assets/images/login_app_img.png",width: MediaQuery.of(context).size.width/3,height: MediaQuery.of(context).size.height/5,fit: BoxFit.cover),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 18),
-                                        child: ElevatedButton(onPressed:()=> confirmPicker(), child: Text("browse")),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                                
-                              ]
-                            )
-                            
-                          ]
-                        )
-                      )
-                    ],
-                  ),
-                ]
-              ),
-            )
-        ):const Center(
-          child: CircularProgressIndicator(),
+                  ]
+                ),
+              )
+          ):const Center(
+            child: CircularProgressIndicator(),
+          ),
         ),
       ), 
     );

@@ -4,14 +4,16 @@ import 'package:mcbp/domain/model/login.dart';
 import 'package:mcbp/presentation/dashboard/dashboard_screen.dart';
 import 'package:mcbp/presentation/home/home_page.dart';
 import 'package:mcbp/presentation/login/login_viewmodel.dart';
+import 'package:mcbp/presentation/resources/colors.dart';
+import 'package:mcbp/presentation/resources/string_resource.dart';
+import 'package:mcbp/presentation/resources/style.dart';
 import 'package:mcbp/presentation/resources/theme.dart';
 import 'package:mcbp/presentation/resources/values.dart';
 import 'package:mcbp/utils/services/mcbp_db.dart';
 import 'package:mcbp/widgets/snackbar_alert.dart';
 
-import '../resources/mcbp_routes.dart';
 import '../../utils/helpers/helper.dart';
-import 'package:toast/toast.dart';
+
 
 class LoginScreen extends StatefulWidget {
 
@@ -21,7 +23,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  LoginViewModel _viewModel = LoginViewModel();
+  final LoginViewModel _viewModel = LoginViewModel();
   _bind(){
     _viewModel.start();
     _username.addListener(()=> _viewModel.setUserName(_username.text));
@@ -69,23 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  loginBtn() async{
-    if(_username.text.isEmpty) {
-      showToast(context, "User Id Required");
-    }else if(_password.text.isEmpty){
-      showToast(context, "Please Provide Password");
-    }else{
-      await db.loginAuth(_username.text,_password.text).then((response){
-        print("$response");
-          showToast(context, "Login Successfully");
-          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomePage()),((Route<dynamic> route) => false));
-      }).catchError((error){
-          print(error);
-          showToast(context, "$error");
-      });
-    }
 
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,23 +82,21 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _getContentWidget(){
     return MaterialApp(
         scaffoldMessengerKey: snackbarKey,
+        debugShowCheckedModeBanner: false,
         theme: getApplicationTheme(),
         home : Material(
             child:Column(
               children: [
                 const SizedBox(
-                  height: 30.0,
+                  height: 40.0,
                 ),
                 Container(
                     height: AppSize.s80,
                     width: AppSize.s80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Colors.blue,
                     ),
                     child: const Image(image: AssetImage('assets/images/logo.jpeg'))
-                ),
-                const SizedBox(
-                  height: 20.0,
                 ),
                 Center(
                   child: SingleChildScrollView(
@@ -123,23 +107,16 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                               height: 40,
                               width: (MediaQuery.of(context).size.width),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(borderRadius),
-                                color: Colors.grey,
-                              ),
-                              child : const Center(
+                              child : Center(
                                 child: Text(
-                                  "লগ-ইন",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.w100,
-                                    fontSize: 24,
-                                  ),
+                                  StringResource.mohilaOdhidoptar,
+                                  style: getBoldStyle(fontSize: AppSize.s20,color: ColorManager.greenColor),
                                 ),
                               )
                           ),
                         ),
                         const SizedBox(
-                          height: 20.0,
+                          height: 40.0,
                         ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: paddingVertical,horizontal: paddingHorizontal),
@@ -152,7 +129,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     controller: _username,
                                     decoration: const InputDecoration(
                                       suffixIcon: Icon(Icons.person),
-                                      hintText: "ব্যবহারকারী আইডি",
                                       labelText: "ব্যবহারকারী আইডি",
                                     ),
                                   );
@@ -169,7 +145,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                     obscureText: true,
                                     decoration: const InputDecoration(
                                       suffixIcon: Icon(Icons.lock),
-                                      hintText: "পাসওয়ার্ড",
                                       labelText: "পাসওয়ার্ড",
                                     ),
                                   );
@@ -182,10 +157,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         const SizedBox(
                           height: 40.0,
                         ),
-                        ElevatedButton(
-                          onPressed: loginBtn,
-                          child: const Text("লগ-ইন",style: TextStyle(color: Colors.white),),
-                        ),
+                        StreamBuilder<bool>(
+                            stream: _viewModel.outputFieldsAreValid,
+                            builder: (context,snapShot){
+                              return ElevatedButton(
+                                onPressed: () {
+                                print("${snapShot.data}");
+                                _viewModel.loginBtn(context,db);
+                              },
+                                child: Text("লগ-ইন",style: getMediumStyle(fontSize: AppSize.s16,color: Colors.white),),
+                              );
+                            }
+                        )
+                        ,
                         const SizedBox(
                           height: 40.0,
                         ),
