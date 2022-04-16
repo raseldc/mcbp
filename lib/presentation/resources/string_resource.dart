@@ -6,6 +6,8 @@ class StringResource{
   static const String abedon = "আবেদন";
   static const String dashboardSuparish = "কমিটি কর্তৃক সুপারিশকৃত";
   static const String mohilaOdhidoptar = "মহিলা বিষয়ক অধিদপ্তর";
+  static const String union = "ইউনিয়ন";
+  static const String talika = "তালিকা";
 
 
   // আর্থ-সামাজিক তথ্য
