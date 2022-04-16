@@ -9,6 +9,8 @@ import 'package:mcbp/presentation/resources/style.dart';
 import 'package:mcbp/presentation/resources/theme.dart';
 import 'package:mcbp/presentation/resources/values.dart';
 import 'package:mcbp/widgets/navigation_drawer.dart';
+
+import '../../utils/services/mcbp_db.dart';
 // import 'package:sizer/sizer.dart';
 // import 'package:blurrycontainer/blurrycontainer.dart';
 
@@ -21,10 +23,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  var db;
   final h = 15;
   final double r = 10;
   final double p = 15;
   final double cardPadding = 8;
+
+
 
   offsetData(){
     return (p*2) + (cardPadding*2);

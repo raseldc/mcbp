@@ -115,6 +115,30 @@ class McbpDatabase{
     return registration.toJson();
   }
 
+  Future<List<Registration>> registrationList() async {
+    // Get a reference to the database.
+    final db = await instance.database;
+
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query("registration");
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.from(maps).map<Registration>((registration) => Registration.fromMap(registration)).toList();
+  }
+
+  Future<List<Registration>> searchByNid(String nid) async {
+    // Get a reference to the database.
+    final db = await instance.database;
+
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query("registration", where: "nationalId = ", whereArgs: [nid]);
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.from(maps).map<Registration>((registration) => Registration.fromMap(registration)).toList();
+  }
+
+  
+
   Future<Login?> loginAuth(String userId, String pass) async{
     final db = await instance.database;
     var query = "SELECT * FROM $tableLogin WHERE"

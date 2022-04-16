@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mcbp/presentation/dashboard/dashboard_screen.dart';
 import 'package:mcbp/presentation/registration/registration_screen.dart';
+import 'package:mcbp/presentation/resources/colors.dart';
+import 'package:mcbp/presentation/resources/string_resource.dart';
+import 'package:mcbp/presentation/resources/style.dart';
+import 'package:mcbp/presentation/talika/registration_list.dart';
 
-import '../modules/dashboards/screens/district_screen.dart';
 import '../modules/dashboards/screens/user_screen.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
@@ -34,22 +37,27 @@ class NavigationDrawerWidget extends StatelessWidget {
               padding: padding,
               child: Column(
                 children: [
-                  const SizedBox(height: 24),
-                  buildMenuItem(
-                    text: 'আবেদন',
-                    icon: Icons.people,
-                    onClicked: () => selectedItem(context, 0),
+                  const Divider(color: Colors.white70),
+                  ExpansionTile(
+                    title: Text(StringResource.union,style: getMediumStyle(color: Colors.white),),
+                    backgroundColor: ColorManager.darkGrey,
+                    children: [
+                      buildMenuItem(
+                        text: 'আবেদন',
+                        icon: Icons.people,
+                        onClicked: () => selectedItem(context, 0),
+                      ),
+                      const SizedBox(height: 16),
+                      buildMenuItem(
+                        text: 'তালিকা',
+                        icon: Icons.favorite_border,
+                        onClicked: () => selectedItem(context, 1),
+                      ),
+                      const SizedBox(height: 16),
+
+                    ],
                   ),
-                  const SizedBox(height: 16),
-                  buildMenuItem(
-                    text: 'তালিকা',
-                    icon: Icons.favorite_border,
-                    onClicked: () => selectedItem(context, 1),
-                  ),
-                  const SizedBox(height: 16),
-          
-                  Divider(color: Colors.white70),
-                  const SizedBox(height: 24),
+                  const Divider(color: Colors.white70),
                   
                 ],
               ),
@@ -102,12 +110,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DistrictScreen(),
-        ));
-        break;
-      case 2:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DistrictScreen(),
+          builder: (context) => RegistrationList(),
         ));
         break;
     }
