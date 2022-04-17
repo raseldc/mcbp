@@ -115,6 +115,30 @@ class McbpDatabase{
     return registration.toJson();
   }
 
+  Future<List<Registration>> registrationList() async {
+    // Get a reference to the database.
+    final db = await instance.database;
+
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query("registration");
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.from(maps).map<Registration>((registration) => Registration.fromMap(registration)).toList();
+  }
+
+  Future<List<Registration>> searchByNid(String nid) async {
+    // Get a reference to the database.
+    final db = await instance.database;
+
+    // Query the table for all The Dogs.
+    final List<Map<String, dynamic>> maps = await db.query("registration", where: "nationalId = ", whereArgs: [nid]);
+
+    // Convert the List<Map<String, dynamic> into a List<Dog>.
+    return List.from(maps).map<Registration>((registration) => Registration.fromMap(registration)).toList();
+  }
+
+  
+
   Future<Login?> loginAuth(String userId, String pass) async{
     final db = await instance.database;
     var query = "SELECT * FROM $tableLogin WHERE"
@@ -127,65 +151,6 @@ class McbpDatabase{
     }
 
     return null;
-  }
-
-  Future<List<Registration>> registrationList() async {
-    // Get a reference to the database.
-    final db = await instance.database;
-
-    // Query the table for all The Dogs.
-    final List<Map<String, dynamic>> maps = await db.query(tableRegistration);
-
-    // Convert the List<Map<String, dynamic> into a List<Dog>.
-    return List.generate(maps.length, (i) {
-      return Registration(
-          nationalId: maps[i]['nationalId'],
-          birthDate: maps[i]['birthDate'],
-          personalNameInBangla: maps[i]['personalNameInBangla'],
-          personalNameInEnglish: maps[i]['personalNameInEnglish'],
-          personalFatherName: maps[i]['personalFatherName'],
-          personalMotherName: maps[i]['personalMotherName'],
-          personalHusbandName: maps[i]['personalHusbandName'],
-          personalNickName: maps[i]['personalNickName'],
-          personalBirthPlace: maps[i]['personalBirthPlace'],
-          personalReligeon: maps[i]['personalReligeon'],
-          personalMobileNo: maps[i]['personalMobileNo'],
-          personalEducation: maps[i]['personalEducation'],
-          personalBloodGroup: maps[i]['personalBloodGroup'],
-          personalMaritialStatus: maps[i]['personalMaritialStatus'],
-          presentDivision: maps[i]['presentDivision'],
-          presentDistrict: maps[i]['presentDistrict'],
-          presentSubDistrict: maps[i]['presentSubDistrict'],
-          presentUnion: maps[i]['presentUnion'],
-          presentVillage: maps[i]['presentVillage'],
-          presentPostCode: maps[i]['presentPostCode'],
-          presentStreet: maps[i]['presentStreet'],
-          permanentDivision: maps[i]['permanentDivision'],
-          permanentDistrict: maps[i]['permanentDistrict'],
-          permanentSubDistrict: maps[i]['permanentSubDistrict'],
-          permanentUnion: maps[i]['permanentUnion'],
-          permanentVillage: maps[i]['permanentVillage'],
-          permanentPostCode: maps[i]['permanentPostCode'],
-          permanentStreet: maps[i]['permanentStreet'],
-          propertyAmount: maps[i]['propertyAmount'],
-          familyHeadOccupation: maps[i]['familyHeadOccupation'],
-          husbandMonthlyIncome: maps[i]['husbandMonthlyIncome'],
-          sanitationFacility: maps[i]['sanitationFacility'],
-          electricityFacility: maps[i]['electricityFacility'],
-          electricityFan: maps[i]['electricityFan'],
-          tubewelFacility: maps[i]['tubewelFacility'],
-          bedRoomWall: maps[i]['bedRoomWall'],
-          disablePerson: maps[i]['disablePerson'],
-          conceptionPriod: maps[i]['conceptionPriod'],
-          conceptionTimeInWeek: maps[i]['conceptionTimeInWeek'],
-          paymentType: maps[i]['paymentType'],
-          accountName: maps[i]['accountName'],
-          accountNumber: maps[i]['accountNumber'],
-          photo: maps[i]['photo'],
-          signature: maps[i]['signature'],
-          attachment: maps[i]['attachment'],
-      );
-    });
   }
 
   Future close() async{

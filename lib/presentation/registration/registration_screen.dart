@@ -600,7 +600,7 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                       ),
                       clipBehavior: Clip.antiAlias,
                       margin: EdgeInsets.zero,
-                      child: (list.isNotEmpty)? ExpansionTile(
+                      child:ExpansionTile(
                         initiallyExpanded: true,
                         title: Text("ব্যক্তিগত তথ্য"),
                         childrenPadding: EdgeInsets.all(8.0),
@@ -820,7 +820,6 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                           TextFormField(
                             controller: _education,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
                               suffixIcon: Icon(Icons.person),
                               hintText: "শিক্ষাগত যোগ্যতা",
                               labelText: "শিক্ষাগত যোগ্যতা",
@@ -896,9 +895,7 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                         ),
 
                         ],
-                      ):const Center(
-                                  child: CircularProgressIndicator(),
-                                ),
+                      ),
                     ),
                     SizedBox(
                       height: 10.0,

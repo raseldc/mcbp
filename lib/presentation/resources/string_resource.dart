@@ -8,6 +8,16 @@ class StringResource{
   static const String mohilaOdhidoptar = "মহিলা বিষয়ক অধিদপ্তর";
   static const String union = "ইউনিয়ন";
   static const String talika = "তালিকা";
+  static const String shongshodhon = "সংশোধন";
+  static const String birthDate = "জন্ম তারিখ*";
+  static const String nameInBangla = "নাম (বাংলা)*";
+  static const String nameInEnglish= "নাম (ইংরেজি)*";
+  static const String fatherName = "পিতার নাম*";
+  static const String motherName = "মাতার নাম*";
+  static const String husbandName = "স্বামীর নাম*";
+  static const String nickName = "স্বামীর নাম*";
+  
+  
 
 
   // আর্থ-সামাজিক তথ্য

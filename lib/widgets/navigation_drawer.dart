@@ -5,8 +5,8 @@ import 'package:mcbp/presentation/resources/colors.dart';
 import 'package:mcbp/presentation/resources/string_resource.dart';
 import 'package:mcbp/presentation/resources/style.dart';
 
-import '../modules/dashboards/screens/district_screen.dart';
 import '../modules/dashboards/screens/user_screen.dart';
+import '../presentation/talika/registration_list.dart';
 
 class NavigationDrawerWidget extends StatelessWidget {
   final padding = EdgeInsets.symmetric(horizontal: 20);
@@ -42,21 +42,23 @@ class NavigationDrawerWidget extends StatelessWidget {
                     title: Text(StringResource.union,style: getMediumStyle(color: Colors.white),),
                     backgroundColor: ColorManager.darkGrey,
                     children: [
-                      const SizedBox(height: 24),
                       buildMenuItem(
-                        text: StringResource.abedon,
-                        icon: Icons.person_add,
+                        text: 'আবেদন',
+                        icon: Icons.people,
                         onClicked: () => selectedItem(context, 0),
                       ),
                       const SizedBox(height: 16),
                       buildMenuItem(
-                        text: StringResource.talika,
-                        icon: Icons.list,
+                        text: 'তালিকা',
+                        icon: Icons.favorite_border,
                         onClicked: () => selectedItem(context, 1),
                       ),
-                    ],
-                  )
+                      const SizedBox(height: 16),
 
+                    ],
+                  ),
+                  const Divider(color: Colors.white70),
+                  
                 ],
               ),
             ),
@@ -108,12 +110,7 @@ class NavigationDrawerWidget extends StatelessWidget {
         break;
       case 1:
         Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DistrictScreen(),
-        ));
-        break;
-      case 2:
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DistrictScreen(),
+          builder: (context) => RegistrationList(),
         ));
         break;
     }
