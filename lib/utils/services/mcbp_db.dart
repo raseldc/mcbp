@@ -137,6 +137,23 @@ class McbpDatabase{
     return List.from(maps).map<Registration>((registration) => Registration.fromMap(registration)).toList();
   }
 
+  Future<Map<String, Object?>> updateRegistration(Registration registration) async {
+  // Get a reference to the database.
+    final db = await instance.database;
+
+    // Update the given Dog.
+    await db.update(
+      'registration',
+      registration.toJson(),
+      // Ensure that the Dog has a matching id.
+      where: '${RegistrationFields.nationalId} = ?',
+      // Pass the Dog's id as a whereArg to prevent SQL injection.
+      whereArgs: [registration.nationalId],
+    );
+
+    return registration.toJson();
+  }
+
   
 
   Future<Login?> loginAuth(String userId, String pass) async{

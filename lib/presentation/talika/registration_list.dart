@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mcbp/domain/model/registration.dart';
+import 'package:mcbp/presentation/resources/colors.dart';
 import 'package:mcbp/presentation/resources/string_resource.dart';
+import 'package:mcbp/presentation/resources/style.dart';
 
 import '../../utils/services/mcbp_db.dart';
 import '../../widgets/item_widget.dart';
@@ -84,8 +86,8 @@ class _RegistrationListState extends State<RegistrationList> {
                       itemCount: list.length,
                       itemBuilder: (context,index)=> 
                       ItemWidget(item: list[index])
-                  ):const Center(
-                    child: Text("No Data Found",),
+                  ):Center(
+                    child: Text("No Data Found",style: getBoldStyle(color: ColorManager.lightGrey),),
                   )
                 ),
             ],

@@ -18,7 +18,7 @@ class ItemWidget extends StatelessWidget {
     return Card(
       child: ListTile(
         onTap: () {
-          print("${item.personalNameInBangla} pressed");
+          print("${item.personalNameInEnglish} pressed");
           Navigator.push(
           context,
           MaterialPageRoute(

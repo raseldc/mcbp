@@ -2,7 +2,7 @@
 
 class StringResource{
   static const String motSokrioVatavogi = "মোট সক্রিয় ভাতাভোগী";
-  static const String religeon = "ধর্ম";
+  static const String religeon = "ধর্ম*";
   static const String abedon = "আবেদন";
   static const String dashboardSuparish = "কমিটি কর্তৃক সুপারিশকৃত";
   static const String mohilaOdhidoptar = "মহিলা বিষয়ক অধিদপ্তর";
@@ -16,6 +16,11 @@ class StringResource{
   static const String motherName = "মাতার নাম*";
   static const String husbandName = "স্বামীর নাম*";
   static const String nickName = "স্বামীর নাম*";
+  static const String birthPlace = "জন্মস্থান*";
+  static const String mobileNo = "মোবাইল নং";
+  static const String education = "শিক্ষাগত যোগ্যতা";  
+  static const String blood = "রক্তের গ্রুপ";
+  
   
   
 

@@ -8,6 +8,7 @@ import 'package:mcbp/presentation/resources/colors.dart';
 import 'package:mcbp/presentation/resources/style.dart';
 import 'package:mcbp/presentation/resources/theme.dart';
 import 'package:mcbp/presentation/resources/values.dart';
+import 'package:mcbp/presentation/talika/registration_list.dart';
 import 'package:mcbp/utils/helpers/helper.dart';
 import 'package:mcbp/widgets/navigation_drawer.dart';
 import 'package:path/path.dart';
@@ -495,7 +496,10 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
               signature: basename(confirmationImage?.path??""),
             )
           ).then((result){
-              print("$result");
+              showToast(context, "Success Updating");
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => RegistrationList(),
+              ));
               register(context);
           }).catchError((error){
               print("$error");
