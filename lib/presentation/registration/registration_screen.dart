@@ -51,6 +51,8 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
   
   var personalDistrict = "";
 
+  var permanentCheck =false;
+
   final _nid = TextEditingController();
   final _nameInBangla = TextEditingController();
   final _nameInEnglish = TextEditingController();
@@ -570,6 +572,7 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
       onBasicAlertPressed(context,"Registration Status", "$response");
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -1144,6 +1147,36 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                           )
 
                         ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Card(
+                      elevation: 5,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      margin: EdgeInsets.zero,
+                      child: Container(
+                        decoration: getBoxDecoration(),
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            children: [
+                              Text("বর্তমান ঠিকানা ও স্থায়ী ঠিকানা একই?",style:getMediumStyle(color: ColorManager.darkGrey)),
+                              Checkbox(
+                                value: permanentCheck, 
+                                onChanged: (bool? value) { // This is where we update the state when the checkbox is tapped
+                                  setState(() {
+                                    permanentCheck = !permanentCheck;
+                                  });
+                                }, 
+                              )
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
