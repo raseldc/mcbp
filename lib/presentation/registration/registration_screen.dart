@@ -260,6 +260,16 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
     permanentSelectedDistrict = querypermanentDistrictList[0];
   }
 
+  onCheckPermanentDistrict(divIndex,disIndex){
+    querypermanentDistrictList = [];
+    permanentDistrictList.forEach((district) {
+      if(district.divisionId == divIndex){
+        querypermanentDistrictList.add(district);
+      }
+    });
+    permanentSelectedDistrict = permanentDistrictList[disIndex];
+  }
+
   //Change Upazilla List According to Division
   permanentChangeUpazilla(district){
     querypermanentUpazillaList = [];
@@ -576,6 +586,13 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    if(permanentCheck){
+      int divIndex = divisionList.indexWhere((element) => element.nameInBangla == selectedDivision!.nameInBangla);
+      int disIndex = permanentDistrictList.indexWhere((element) => element.nameInBangla == selectedDistrict!.nameInBangla);
+      permanentSelectedDivision = divisionList[divIndex];
+      onCheckPermanentDistrict(divIndex, disIndex);
+    }
 
     return WillPopScope(
       onWillPop: () async {
@@ -1963,5 +1980,10 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
         ),
       ), 
     );
+  }
+
+  void setPermanentAsPresent(bool? value) {
+
+
   }
 }
