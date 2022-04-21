@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
@@ -36,17 +38,18 @@ class _RegistrationEditState extends State<RegistrationEdit> {
 
   String selectedConception = StringResource.conceptionTermList[0];
 
+  var items = StringResource.religeonList;
+  String? religion;
+
+  var bloodGroup = StringResource.bloodGroup;
+  String? selectedBlood;
+
+  var matritialStatus = StringResource.maritialStatus;
+  String? selectedMaritialStatus = StringResource.maritialStatus[0];
+
+
     List<District> list = [];
     List districtStringList=[];
-
-    var items = StringResource.religeonList;
-    String? religion;
-
-    var bloodGroup = StringResource.bloodGroup;
-    String? selectedBood;
-
-    var matritialStatus = StringResource.maritialStatus;
-    var selectedMaritialStatus = StringResource.maritialStatus[0];
     
     var personalDistrict = "";
 
@@ -66,6 +69,23 @@ class _RegistrationEditState extends State<RegistrationEdit> {
 
     final _permanentPostCode = TextEditingController();
     final _permanentStreet = TextEditingController();
+
+    String? _nidData;
+    String? _birthDateData;
+    String? _nameInBanglaData;
+    String? _nameInEnglishData;
+    String? _fatherNameData;
+    String? _motherNameData; 
+    String? _husbandNameData;
+    String? _nickNameData;
+    String? _mobileNumberData;
+    String? _educationData;
+
+    String? _postCodeData; 
+    String? _streetData; 
+
+    String? _permanentPostCodeData; 
+    String? _permanentStreetData; 
 
     File? tempImage;
     File? signatureImage;
@@ -110,16 +130,18 @@ class _RegistrationEditState extends State<RegistrationEdit> {
 
 
     //Social Financial State
-    String selectedAsset = StringResource.assetAmountList[0];
-    String selectedheadOccupation = StringResource.headOccupationList[0];
-    String selectedHusbandMonthlyIncome = StringResource.husbandMonthlyIncomeList[0];
-    String selectedSanitaionState = StringResource.yesOrNo[0];
-    String selectedelectricityState = StringResource.yesOrNo[0];
-    String selectedElectricFan = StringResource.yesOrNo[0];
-    String selectedTubewel = StringResource.yesOrNo[0];
-    String selectedInterior = StringResource.livingRoomStateList[0];
-    String selectedDisablePerson = StringResource.disablePersonList[0];
+    String? selectedAsset;
+    String? selectedheadOccupation;
+    String? selectedHusbandMonthlyIncome;
+    String? selectedSanitaionState;
+    String? selectedelectricityState;
+    String? selectedElectricFan;
+    String? selectedTubewel;
+    String? selectedInterior;
+    String? selectedDisablePerson;
     var db;
+
+  
 
   @override
     void initState(){
@@ -191,15 +213,58 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                                     toList();
       permanentVillageList = villageList;
       
-      selectedDivision = divisionList[0];
-      permanentSelectedDivision = permanentDivisionList[0];
-    
-
-      personalDistrict = districtList[0].nameInBangla;
+      checkBoxToggle();
 
       setState(() {});
 
     }
+
+  void checkBoxToggle() {
+
+      int divIndex = divisionList.indexWhere((element) => element.nameInBangla == widget.item.presentDivision);
+      int disIndex = districtList.indexWhere((element) => element.nameInBangla == widget.item.presentDistrict);
+      int subDivIndex = upazillaList.indexWhere((element) => element.nameInBangla == widget.item.presentSubDistrict);
+      int unionIndex = unionList.indexWhere((element) => element.nameInBangla == widget.item.presentUnion);
+      int religionIndex = StringResource.religeonList.indexWhere((element) => element == widget.item.personalReligeon);
+      int conceptIndex = StringResource.conceptionTermList.indexWhere((element) => element == widget.item.conceptionPriod);
+      int bloodIndex = StringResource.bloodGroup.indexWhere((element) => element == widget.item.personalBloodGroup);
+      int marraigeIndex = StringResource.maritialStatus.indexWhere((element) => element == widget.item.personalMaritialStatus);
+      int assetIndex = StringResource.assetAmountList.indexWhere((element) => element == widget.item.propertyAmount);
+      int hOccuIndex = StringResource.headOccupationList.indexWhere((element) => element == widget.item.familyHeadOccupation);
+      int hIncIndex = StringResource.husbandMonthlyIncomeList.indexWhere((element) => element == widget.item.husbandMonthlyIncome);
+      int santitationIndex = StringResource.yesOrNo.indexWhere((element) => element == widget.item.sanitationFacility);
+      int electricityIndex = StringResource.yesOrNo.indexWhere((element) => element == widget.item.electricityFacility);
+      int fanIndex = StringResource.yesOrNo.indexWhere((element) => element == widget.item.electricityFan);
+      int tubewellIndex = StringResource.yesOrNo.indexWhere((element) => element == widget.item.tubewelFacility);
+      int interiorIndex = StringResource.livingRoomStateList.indexWhere((element) => element == widget.item.bedRoomWall);
+      int disableIndex = StringResource.disablePersonList.indexWhere((element) => element == widget.item.disablePerson);
+
+
+      selectedMaritialStatus = StringResource.maritialStatus[marraigeIndex];
+      selectedBlood =  StringResource.bloodGroup[bloodIndex];
+      selectedConception = StringResource.conceptionTermList[conceptIndex];
+      religion = StringResource.religeonList[religionIndex];
+
+      permanentSelectedDivision = divisionList[divIndex];
+      permanentChangeDistrist(permanentSelectedDivision);
+      permanentChangeUpazilla(districtList[disIndex]);
+      permanentChangeUnion(upazillaList[subDivIndex]);
+      permanentChangeVillage(unionList[unionIndex]);
+
+      selectedAsset = StringResource.assetAmountList[assetIndex];
+      selectedheadOccupation = StringResource.headOccupationList[hOccuIndex];
+      selectedHusbandMonthlyIncome = StringResource.husbandMonthlyIncomeList[hIncIndex];
+      selectedSanitaionState = StringResource.yesOrNo[santitationIndex];
+      selectedelectricityState = StringResource.yesOrNo[electricityIndex];
+      selectedElectricFan = StringResource.yesOrNo[fanIndex];
+      selectedTubewel = StringResource.yesOrNo[tubewellIndex];
+      selectedInterior = StringResource.livingRoomStateList[interiorIndex];
+      selectedDisablePerson = StringResource.disablePersonList[disableIndex];
+
+      _permanentPostCode.text =  _postCode.text;
+      _permanentStreet.text = _street.text;
+
+  }
 
   //Change District List According to Division
   changeDistrist(division){
@@ -372,7 +437,7 @@ class _RegistrationEditState extends State<RegistrationEdit> {
         showToast(context, "Education is Required");
       }else if(religion!.isEmpty){
         showToast(context, "Father Name is Required");
-      }else if(selectedBood!.isEmpty){
+      }else if(selectedBlood == ""){
         showToast(context, "Blood Group is Required");
       }else if(personalDistrict.isEmpty){
         showToast(context, "District is Required");
@@ -406,23 +471,23 @@ class _RegistrationEditState extends State<RegistrationEdit> {
         showToast(context, "Permanent Post Code is Required");
       }else if(_permanentStreet.text.isEmpty){
         showToast(context, "permanent Street/Block is Required");
-      }else if(selectedAsset.isEmpty || selectedAsset ==  StringResource.assetAmountList[0]){
+      }else if(selectedAsset == "" || selectedAsset ==  StringResource.assetAmountList[0]){
         showToast(context, "Asset Amount is Required");
-      }else if(selectedheadOccupation.isEmpty || selectedheadOccupation == StringResource.headOccupationList[0]){
+      }else if(selectedheadOccupation == "" || selectedheadOccupation == StringResource.headOccupationList[0]){
         showToast(context, "Head Occupation is Required");
-      }else if(selectedHusbandMonthlyIncome.isEmpty || selectedHusbandMonthlyIncome == StringResource.husbandMonthlyIncomeList[0]){
+      }else if(selectedHusbandMonthlyIncome == "" || selectedHusbandMonthlyIncome == StringResource.husbandMonthlyIncomeList[0]){
         showToast(context, "Husband Monthly income is Required");
-      }else if(selectedSanitaionState.isEmpty || selectedSanitaionState == StringResource.assetAmountList[0]){
+      }else if(selectedSanitaionState == "" || selectedSanitaionState == StringResource.assetAmountList[0]){
         showToast(context, "Sanitation Facility is Required");
-      }else if(selectedelectricityState.isEmpty || selectedelectricityState == StringResource.assetAmountList[0]){
+      }else if(selectedelectricityState == "" || selectedelectricityState == StringResource.assetAmountList[0]){
         showToast(context, "electricity Facility is Required");
-      }else if(selectedElectricFan.isEmpty || selectedElectricFan == StringResource.assetAmountList[0]){
+      }else if(selectedElectricFan == "" || selectedElectricFan == StringResource.assetAmountList[0]){
         showToast(context, "Electric Fan Facility is Required");
-      }else if(selectedTubewel.isEmpty || selectedTubewel == StringResource.assetAmountList[0]){
+      }else if(selectedTubewel == "" || selectedTubewel == StringResource.assetAmountList[0]){
         showToast(context, "TubeWel is Required");
-      }else if(selectedInterior.isEmpty || selectedInterior == StringResource.assetAmountList[0]){
+      }else if(selectedInterior == "" || selectedInterior == StringResource.assetAmountList[0]){
         showToast(context, "Bed Room Wall is Required");
-      }else if(selectedDisablePerson.isEmpty || selectedDisablePerson == StringResource.assetAmountList[0]){
+      }else if(selectedDisablePerson == "" || selectedDisablePerson == StringResource.assetAmountList[0]){
         showToast(context, "Disable Person is Required");
       }else if(selectedConception.isEmpty || selectedConception == StringResource.assetAmountList[0]){
         showToast(context, "Conception priod is Required");
@@ -463,7 +528,7 @@ class _RegistrationEditState extends State<RegistrationEdit> {
               personalReligeon : religion,
               personalMobileNo: _mobileNumber.text,
               personalEducation: _education.text,
-              personalBloodGroup: selectedBood,
+              personalBloodGroup: selectedBlood,
               personalMaritialStatus: selectedMaritialStatus,
               presentDivision: selectedDivision?.nameInBangla,
               presentDistrict: selectedDistrict?.nameInBangla,
@@ -515,13 +580,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
     //Receiving Data From RegistrationList Screen
     Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
     _nid.text = widget.item.nationalId!;
+    
 
     
-    if(selectedBood == "" || selectedBood == null){
-      selectedBood = widget.item.personalBloodGroup!;
+    if(selectedBlood == "" || selectedBlood == null){
+      selectedBlood = widget.item.personalBloodGroup!;
     }
 
-    if(selectedMaritialStatus == "" || selectedBood == null){
+    if(selectedMaritialStatus == "" || selectedBlood == null){
       selectedMaritialStatus = widget.item.personalMaritialStatus!;
     }
 
@@ -531,6 +597,10 @@ class _RegistrationEditState extends State<RegistrationEdit> {
 
     if(religion == "" || religion == null){
       religion = widget.item.personalReligeon!;
+    }
+
+    if(_birthDateData==null || _birthDateData==""){
+      _birthDateData = widget.item.birthDate!;
     }
 
 
@@ -571,6 +641,7 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: "জাতীয় পরিচয় পত্র নং*",
+                          
                           ),
                           onChanged: (value){
                               setState(() {
@@ -582,14 +653,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _birthDate,
+                          initialValue: _birthDateData,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.birthDate,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _birthDateData = value;
                               });
                           },
                       ),
@@ -597,14 +668,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                        controller: _nameInBangla,
+                        initialValue: widget.item.personalNameInBangla,
                         decoration: const InputDecoration(
                           suffixIcon: Icon(Icons.person),
                           labelText: StringResource.nameInBangla,
                         ),
                         onChanged: (value){
                             setState(() {
-        
+                                _nameInBanglaData = value;
                             });
                         },
                       ),
@@ -612,14 +683,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _nameInEnglish,
+                          initialValue: widget.item.personalNameInEnglish,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.nameInEnglish,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _nameInEnglishData = value;
                               });
                           },
                       ),
@@ -627,14 +698,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _fatherName,
+                          initialValue: widget.item.personalFatherName,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.fatherName,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _fatherNameData = value;
                               });
                           },
                       ),
@@ -642,14 +713,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _motherName,
+                          initialValue: widget.item.personalMotherName,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.motherName,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _motherNameData = value;
                               });
                           },
                       ),
@@ -657,14 +728,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _husbandName,
+                          initialValue: widget.item.personalHusbandName,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.husbandName,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _husbandNameData = value;
                               });
                           },
                       ),
@@ -672,14 +743,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _nickName,
+                          initialValue: widget.item.personalNickName,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.nickName,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _nickNameData = value;
                               });
                           },
                       ),
@@ -758,14 +829,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _mobileNumber,
+                          initialValue: widget.item.personalMobileNo,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.mobileNo,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _mobileNumberData = value;
                               });
                           },
                       ),
@@ -773,14 +844,14 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                         height: 10.0,
                       ),
                       TextFormField(
-                          controller: _education,
+                          initialValue: widget.item.personalEducation,
                           decoration: const InputDecoration(
                             suffixIcon: Icon(Icons.person),
                             labelText: StringResource.education,
                           ),
                           onChanged: (value){
                               setState(() {
-          
+                                _educationData = value;
                               });
                           },
                       ),
@@ -798,7 +869,7 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                           child: DropdownButtonHideUnderline(child: DropdownButton(
       
                             // Initial Value
-                            value: selectedBood,
+                            value: selectedBlood,
                             isExpanded: true,
                             // Down Arrow Icon
                             icon: const Icon(Icons.keyboard_arrow_down),
@@ -814,7 +885,7 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                             // change button value to selected value
                             onChanged: (String? newValue) {
                               setState(() {
-                                selectedBood = newValue!;
+                                selectedBlood = newValue!;
                               });
                             },
                           ),
@@ -1065,20 +1136,19 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                             ),
                             )
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20.0,
                           ),
                           TextFormField(
-                            controller: _postCode,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                            initialValue: widget.item.presentPostCode,
+                            decoration: const InputDecoration(
                               suffixIcon: Icon(Icons.person),
                               hintText: "পোস্ট কোড",
                               labelText: "পোস্ট কোড",
                             ),
                             onChanged: (value){
                               setState(() {
-
+                                _postCodeData = value;
                               });
                             },
                           ),
@@ -1086,16 +1156,15 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                             height: 20.0,
                           ),
                           TextFormField(
-                            controller: _street,
+                            initialValue: widget.item.presentStreet,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
                               suffixIcon: Icon(Icons.person),
                               hintText: "রাস্তা/ব্লক/সেক্টর",
                               labelText: "রাস্তা/ব্লক/সেক্টর",
                             ),
                             onChanged: (value){
                               setState(() {
-
+                                _streetData = value;
                               });
                             },
                           )
@@ -1314,7 +1383,7 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                             height: 20.0,
                           ),
                           TextFormField(
-                            controller: _permanentPostCode,
+                            initialValue: widget.item.permanentPostCode,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               suffixIcon: Icon(Icons.person),
@@ -1323,7 +1392,7 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                             ),
                             onChanged: (value){
                               setState(() {
-
+                                _permanentPostCodeData = value;
                               });
                             },
                           ),
@@ -1331,16 +1400,15 @@ class _RegistrationEditState extends State<RegistrationEdit> {
                             height: 20.0,
                           ),
                           TextFormField(
-                            controller: _permanentStreet,
+                            initialValue: widget.item.permanentStreet,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
                               suffixIcon: Icon(Icons.person),
                               hintText: "রাস্তা/ব্লক/সেক্টর",
                               labelText: "রাস্তা/ব্লক/সেক্টর",
                             ),
                             onChanged: (value){
                               setState(() {
-
+                                _permanentStreetData = value;
                               });
                             },
                           )

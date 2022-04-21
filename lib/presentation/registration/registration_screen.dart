@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison, prefer_const_constructors
+
 import 'dart:convert';
 import 'dart:io';
 
@@ -33,6 +35,8 @@ class RegistraionScreen extends StatefulWidget {
 }
 
 class _RegistraionScreenState extends State<RegistraionScreen> {
+
+  final personalFromKey = GlobalKey<FormState>();
 
   var db;
   String selectedConception = StringResource.conceptionTermList[0];
@@ -257,18 +261,15 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
           querypermanentDistrictList.add(district);
         }
     });
-    permanentSelectedDistrict = querypermanentDistrictList[0];
+    if(permanentCheck){
+      int disIndex = querypermanentDistrictList.indexWhere((element) => element.nameInBangla == selectedDistrict!.nameInBangla);
+      permanentSelectedDistrict = querypermanentDistrictList[disIndex];
+    }else{
+      permanentSelectedDistrict = querypermanentDistrictList[0];
+    }
+    
   }
 
-  onCheckPermanentDistrict(divIndex,disIndex){
-    querypermanentDistrictList = [];
-    permanentDistrictList.forEach((district) {
-      if(district.divisionId == divIndex){
-        querypermanentDistrictList.add(district);
-      }
-    });
-    permanentSelectedDistrict = permanentDistrictList[disIndex];
-  }
 
   //Change Upazilla List According to Division
   permanentChangeUpazilla(district){
@@ -278,7 +279,13 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
           querypermanentUpazillaList.add(upazilla);
         }
     });
-    permanentSelectedUpazilla = querypermanentUpazillaList[0];
+    if(permanentCheck){
+      int index = querypermanentUpazillaList.indexWhere((element) => element.nameInBangla == selectedUpazilla!.nameInBangla);
+      permanentSelectedUpazilla = querypermanentUpazillaList[index];
+    }else{
+      permanentSelectedUpazilla = querypermanentUpazillaList[0];
+    }
+    
   }
 
   //Change Union List According to Division
@@ -289,7 +296,14 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
           querypermanentUnionList.add(union);
         }
     });
-    permanentSelectedUnion = querypermanentUnionList[0];
+    if(permanentCheck){
+      int index = querypermanentUnionList.indexWhere((element) => element.nameInBangla == selectedUnion!.nameInBangla);
+      permanentSelectedUnion = querypermanentUnionList[index];
+
+    }else{
+      permanentSelectedUnion = querypermanentUnionList[0];
+    }
+    
   }
 
   //Change Village List According to Division
@@ -300,7 +314,15 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
           querypermanentVillageList.add(village);
         }
     });
-    permanentSelectedVillage = querypermanentVillageList[0];
+
+    if(permanentCheck){
+      int index = querypermanentVillageList.indexWhere((element) => element.nameInBangla == selectedVillage!.nameInBangla);
+      permanentSelectedVillage = querypermanentVillageList[index];
+    }else{
+      permanentSelectedVillage = querypermanentVillageList[0];
+    }
+
+    
   }
 
   // File Upload
@@ -587,13 +609,6 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
   @override
   Widget build(BuildContext context) {
 
-    if(permanentCheck){
-      int divIndex = divisionList.indexWhere((element) => element.nameInBangla == selectedDivision!.nameInBangla);
-      int disIndex = permanentDistrictList.indexWhere((element) => element.nameInBangla == selectedDistrict!.nameInBangla);
-      permanentSelectedDivision = divisionList[divIndex];
-      onCheckPermanentDistrict(divIndex, disIndex);
-    }
-
     return WillPopScope(
       onWillPop: () async {
         await Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=> HomePage()),((Route<dynamic> route) => false));
@@ -613,7 +628,17 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(children: [
                   Align(
-                      alignment: Alignment.centerRight,child: ElevatedButton(onPressed: ()=>saveRegistration(context), child: Text("আবেদন"))),
+                      alignment: Alignment.centerRight,child: ElevatedButton(
+                        onPressed: (){
+                          if(personalFromKey.currentState!.validate()){
+                            // final snackBar = SnackBar(content: Text("Form Submmiting"));
+                            // _scafoldKey.currentState!.showSnackBar(snackBar);
+                            saveRegistration(context);
+                          }
+                          
+                        },
+                      child: Text("আবেদন"))
+                      ),
                   SizedBox(
                       height: 10.0,
                     ),//Personal Info Card
@@ -624,301 +649,357 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                       ),
                       clipBehavior: Clip.antiAlias,
                       margin: EdgeInsets.zero,
-                      child:ExpansionTile(
-                        initiallyExpanded: true,
-                        title: Text("ব্যক্তিগত তথ্য"),
-                        childrenPadding: EdgeInsets.all(8.0),
-                        children: [
-                          TextFormField(
-                            controller: _nid,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "জাতীয় পরিচয় পত্র নং*",
-                              labelText: "জাতীয় পরিচয় পত্র নং*",
-                            ),
-                            onChanged: (value){
-                                setState(() {
+                      child:Form(
+                        key: personalFromKey,
+                        child: ExpansionTile(
+                          initiallyExpanded: true,
+                          title: Text("ব্যক্তিগত তথ্য"),
+                          childrenPadding: EdgeInsets.all(8.0),
+                          children: [
+                            TextFormField(
+                              controller: _nid,
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "জাতীয় পরিচয় পত্র নং*",
+                                labelText: "জাতীয় পরিচয় পত্র নং*",
+                              ),
+                              
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'This is the required field';
+                                }
+                                else if(value.length != 14 && value.length != 10){
+                                  return 'Invalid Nid';
+                                }
 
-                                });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "জন্ম তারিখ*",
-                              labelText: "জন্ম তারিখ*",
-                            ),
-                            onChanged: (value){
-
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _nameInBangla,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "নাম (বাংলা)*",
-                              labelText: "নাম (বাংলা)",
-                            ),
-                            onChanged: (value){
-                              setState(() {
-
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _nameInEnglish,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "নাম (ইংরেজি)*",
-                              labelText: "নাম (ইংরেজি)",
-                            ),
-                            onChanged: (value){
-                              setState(() {
-
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _fatherName,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "পিতার নাম*",
-                              labelText: "পিতার নাম",
-                            ),
-                            onChanged: (value){
-                              setState(() {
-
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _motherName,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "মাতার নাম*",
-                              labelText: "মাতার নাম",
-                            ),
-                            onChanged: (value){
-                              setState(() {
-
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _husbandName,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "স্বামীর নাম*",
-                              labelText: "স্বামীর নাম",
-                            ),
-                            onChanged: (value){
-
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _nickName,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "যে নামে পরিচিত",
-                              labelText: "যে নামে পরিচিত",
-                            ),
-                            onChanged: (value){
-                              setState(() {
-
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: getBoxDecoration(),
-                            padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
-                            child: DropdownButtonHideUnderline(child: DropdownButton(
-
-                              // Initial Value
-                              value: personalDistrict,
-                              isExpanded: true,
-                              // Down Arrow Icon
-                              icon: const Icon(Icons.keyboard_arrow_down),
-
-                              // Array list of items
-                              items: list.map((items) {
-                                return DropdownMenuItem(
-                                  value: items.nameInBangla,
-                                  child:  Text(items.nameInBangla),
-                                );
-                              }).toList(),
-                              // After selecting the desired option,it will
-                              // change button value to selected value
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  personalDistrict = newValue!;
-                                });
+                                else if(!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                                  return 'NID is Invalid';
+                                }
+                                return null;
                               },
                             ),
-                        )
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: getBoxDecoration(),
-                            padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
-                            child: DropdownButtonHideUnderline(child: DropdownButton(
-
-                              // Initial Value
-                              value: religion,
-                              isExpanded: true,
-                              // Down Arrow Icon
-                              icon: const Icon(Icons.keyboard_arrow_down),
-
-                              // Array list of items
-                              items: items.map((String items) {
-                                return DropdownMenuItem(
-                                  value: items,
-                                  child: Text(items),
-                                );
-                              }).toList(),
-                              // After selecting the desired option,it will
-                              // change button value to selected value
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  religion = newValue!;
-                                });
-                              },
+                            const SizedBox(
+                              height: 20.0,
                             ),
-                        )
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _mobileNumber,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "মোবাইল নং",
-                              labelText: "মোবাইল নং",
-                            ),
-                            onChanged: (value){
-                              setState(() {
+                            TextFormField(
+                              decoration: const InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "জন্ম তারিখ*",
+                                labelText: "জন্ম তারিখ*",
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Birthdate Required';
+                                }
 
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          TextFormField(
-                            controller: _education,
-                            decoration: InputDecoration(
-                              suffixIcon: Icon(Icons.person),
-                              hintText: "শিক্ষাগত যোগ্যতা",
-                              labelText: "শিক্ষাগত যোগ্যতা",
+                                return null;
+                              }
                             ),
-                            onChanged: (value){
-                              setState(() {
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _nameInBangla,
+                              decoration: const InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "নাম (বাংলা)*",
+                                labelText: "নাম (বাংলা)",
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Name Required';
+                                }
 
-                              });
-                            },
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
+                                if(RegExp(r'^[a-z]+$').hasMatch(value)) {
+                                  return 'Name is Invalid';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _nameInEnglish,
+                              decoration: const InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "নাম (ইংরেজি)*",
+                                labelText: "নাম (ইংরেজি)",
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'English Name Required';
+                                }
+
+                                if(!RegExp(r'^[a-z]+$').hasMatch(value)) {
+                                  return 'Name is Invalid';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            const SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _fatherName,
+                              decoration: const InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "পিতার নাম*",
+                                labelText: "পিতার নাম",
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Father Name Required';
+                                }
+
+                                if(!RegExp(r'^[a-z]+$').hasMatch(value)) {
+                                  return 'Father Name is Invalid';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _motherName,
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "মাতার নাম*",
+                                labelText: "মাতার নাম",
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Mother Name Required';
+                                }
+
+                                if(!RegExp(r'^[a-z]+$').hasMatch(value)) {
+                                  return 'Mother Name is Invalid';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _husbandName,
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "স্বামীর নাম*",
+                                labelText: "স্বামীর নাম",
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Husband Name Required';
+                                }
+
+                                if(!RegExp(r'^[a-z]+$').hasMatch(value)) {
+                                  return 'Husband Name is Invalid';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _nickName,
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "যে নামে পরিচিত",
+                                labelText: "যে নামে পরিচিত",
+                              ),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Nick Name Required';
+                                }
+
+                                if(!RegExp(r'^[a-z]+$').hasMatch(value)) {
+                                  return 'Nick Name is Invalid';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: getBoxDecoration(),
                               padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
                               child: DropdownButtonHideUnderline(child: DropdownButton(
-
+                      
                                 // Initial Value
-                                value: selectedBood,
+                                value: personalDistrict,
                                 isExpanded: true,
                                 // Down Arrow Icon
                                 icon: const Icon(Icons.keyboard_arrow_down),
-
+                      
                                 // Array list of items
-                                items: bloodGroup.map((String item) {
+                                items: list.map((items) {
                                   return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item),
+                                    value: items.nameInBangla,
+                                    child:  Text(items.nameInBangla),
                                   );
                                 }).toList(),
                                 // After selecting the desired option,it will
                                 // change button value to selected value
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                    selectedBood = newValue!;
+                                    personalDistrict = newValue!;
                                   });
                                 },
+                                
                               ),
                           )
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: getBoxDecoration(),
-                              padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                              padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
                               child: DropdownButtonHideUnderline(child: DropdownButton(
+                      
                                 // Initial Value
-                                value: selectedMaritialStatus,
+                                value: religion,
                                 isExpanded: true,
                                 // Down Arrow Icon
                                 icon: const Icon(Icons.keyboard_arrow_down),
-
+                      
                                 // Array list of items
-                                items: matritialStatus.map((String item) {
+                                items: items.map((String items) {
                                   return DropdownMenuItem(
-                                    value: item,
-                                    child: Text(item),
+                                    value: items,
+                                    child: Text(items),
                                   );
                                 }).toList(),
                                 // After selecting the desired option,it will
                                 // change button value to selected value
                                 onChanged: (String? newValue) {
                                   setState(() {
-                                    selectedMaritialStatus = newValue!;
+                                    religion = newValue!;
                                   });
                                 },
                               ),
                           )
-                        ),
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _mobileNumber,
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "মোবাইল নং",
+                                labelText: "মোবাইল নং",
+                              ),
+                              validator: (value) {
 
-                        ],
+                                if (value == null || value.isEmpty) {
+                                  return 'Mobile number Required';
+                                }
+
+                                if(!RegExp(r'^(?:(?:\+|00)88|01)?\d{11}\r?$').hasMatch(value)) {
+                                  return 'Mobile number is Invalid';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            TextFormField(
+                              controller: _education,
+                              decoration: InputDecoration(
+                                suffixIcon: Icon(Icons.person),
+                                hintText: "শিক্ষাগত যোগ্যতা",
+                                labelText: "শিক্ষাগত যোগ্যতা",
+                              ),
+                              validator: (value) {
+
+                                if (value == null || value.isEmpty) {
+                                  return 'Education Required';
+                                }
+                                
+                                return null;
+                              }
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: getBoxDecoration(),
+                                padding: EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                                child: DropdownButtonHideUnderline(child: DropdownButton(
+                      
+                                  // Initial Value
+                                  value: selectedBood,
+                                  isExpanded: true,
+                                  // Down Arrow Icon
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                      
+                                  // Array list of items
+                                  items: bloodGroup.map((String item) {
+                                    return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item),
+                                    );
+                                  }).toList(),
+                                  // After selecting the desired option,it will
+                                  // change button value to selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedBood = newValue!;
+                                    });
+                                  },
+                                ),
+                            )
+                            ),
+                            SizedBox(
+                              height: 20.0,
+                            ),
+                            Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: getBoxDecoration(),
+                                padding: const EdgeInsets.symmetric(horizontal: AppPadding.p8),
+                                child: DropdownButtonHideUnderline(child: DropdownButton(
+                                  // Initial Value
+                                  value: selectedMaritialStatus,
+                                  isExpanded: true,
+                                  // Down Arrow Icon
+                                  icon: const Icon(Icons.keyboard_arrow_down),
+                      
+                                  // Array list of items
+                                  items: matritialStatus.map((String item) {
+                                    return DropdownMenuItem(
+                                      value: item,
+                                      child: Text(item),
+                                    );
+                                  }).toList(),
+                                  // After selecting the desired option,it will
+                                  // change button value to selected value
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      selectedMaritialStatus = newValue!;
+                                    });
+                                  },
+                                ),
+                            )
+                          ),
+                      
+                          ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -1133,34 +1214,38 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                           ),
                           TextFormField(
                             controller: _postCode,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                            decoration: const InputDecoration(
+                            
                               suffixIcon: Icon(Icons.person),
                               hintText: "পোস্ট কোড",
                               labelText: "পোস্ট কোড",
                             ),
-                            onChanged: (value){
-                              setState(() {
+                            validator: (value) {
 
-                              });
-                            },
+                                if (value == null || value.isEmpty) {
+                                  return 'Post Code Required';
+                                }
+                                
+                                return null;
+                              }
                           ),
                           SizedBox(
                             height: 20.0,
                           ),
                           TextFormField(
                             controller: _street,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
+                            decoration: const InputDecoration(
                               suffixIcon: Icon(Icons.person),
                               hintText: "রাস্তা/ব্লক/সেক্টর",
                               labelText: "রাস্তা/ব্লক/সেক্টর",
                             ),
-                            onChanged: (value){
-                              setState(() {
+                            validator: (value) {
 
-                              });
-                            },
+                                if (value == null || value.isEmpty) {
+                                  return 'Road/Block/Street Required';
+                                }
+                                return null;
+                              }
                           )
 
                         ],
@@ -1186,9 +1271,9 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                               Checkbox(
                                 value: permanentCheck, 
                                 onChanged: (bool? value) { // This is where we update the state when the checkbox is tapped
-                                  setState(() {
-                                    permanentCheck = !permanentCheck;
-                                  });
+                                  
+                                  checkBoxToggle(context);
+                                   
                                 }, 
                               )
                             ],
@@ -1240,8 +1325,12 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                               onChanged: (Division? newValue){
 
                                 setState(() {
-                                  permanentChangeDistrist(newValue);
-                                  permanentSelectedDivision = newValue!;
+
+                                  if(!permanentCheck){
+                                    permanentChangeDistrist(newValue);
+                                    permanentSelectedDivision = newValue!;
+                                  }
+                                  
                                 });
 
                               },
@@ -1280,8 +1369,11 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                               // change button value to selected value
                               onChanged: (District? newValue){
                                 setState(() {
-                                  permanentChangeUpazilla(newValue);
-                                  permanentSelectedDistrict = newValue!;
+                                  if(!permanentCheck){
+                                    permanentChangeUpazilla(newValue);
+                                    permanentSelectedDistrict = newValue!;
+                                  }
+                                  
                                 });
                               },
                             ),
@@ -1319,8 +1411,11 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                               // change button value to selected value
                               onChanged: (Upazilla? newValue){
                                 setState(() {
-                                  permanentChangeUnion(newValue);
-                                  permanentSelectedUpazilla = newValue!;
+                                  if(!permanentCheck){
+                                    permanentChangeUnion(newValue);
+                                    permanentSelectedUpazilla = newValue!;
+                                  }
+                                  
                                 });
                               },
                             ),
@@ -1358,8 +1453,10 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                               // change button value to selected value
                               onChanged: (Union? newValue){
                                 setState(() {
-                                  permanentChangeVillage(newValue);
-                                  permanentSelectedUnion = newValue!;
+                                  if(!permanentCheck){
+                                    permanentChangeVillage(newValue);
+                                    permanentSelectedUnion = newValue!;
+                                  }
                                 });
                               },
                             ),
@@ -1409,16 +1506,18 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                           TextFormField(
                             controller: _permanentPostCode,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
                               suffixIcon: Icon(Icons.person),
                               hintText: "পোস্ট কোড",
                               labelText: "পোস্ট কোড",
                             ),
-                            onChanged: (value){
-                              setState(() {
+                            validator: (value) {
 
-                              });
-                            },
+                                if (value == null || value.isEmpty) {
+                                  return 'Post Code Required';
+                                }
+                                
+                                return null;
+                              }
                           ),
                           SizedBox(
                             height: 20.0,
@@ -1426,16 +1525,19 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
                           TextFormField(
                             controller: _permanentStreet,
                             decoration: InputDecoration(
-                              border: OutlineInputBorder(),
                               suffixIcon: Icon(Icons.person),
                               hintText: "রাস্তা/ব্লক/সেক্টর",
                               labelText: "রাস্তা/ব্লক/সেক্টর",
                             ),
-                            onChanged: (value){
-                              setState(() {
+                            validator: (value) {
 
-                              });
-                            },
+                                if (value == null || value.isEmpty) {
+                                  return 'Road/Street/Block Required';
+                                }
+                                
+                                return null;
+                              }
+                            
                           )
 
                         ],
@@ -1982,8 +2084,34 @@ class _RegistraionScreenState extends State<RegistraionScreen> {
     );
   }
 
-  void setPermanentAsPresent(bool? value) {
+  void checkBoxToggle(context) {
 
+    if(divisionList != null && districtList != null && unionList != null && villageList != null && _postCode.text.isNotEmpty && _street.text.isNotEmpty){
+                                      permanentCheck = !permanentCheck;
+                                    }else{
+                                      showToast(context, "Permanent Address is Not Povided");
+                                    }
+
+    if(permanentCheck){
+      int divIndex = divisionList.indexWhere((element) => element.nameInBangla == selectedDivision!.nameInBangla);
+      int disIndex = districtList.indexWhere((element) => element.nameInBangla == selectedDistrict!.nameInBangla);
+      int subDivIndex = upazillaList.indexWhere((element) => element.nameInBangla == selectedUpazilla!.nameInBangla);
+      int unionIndex = unionList.indexWhere((element) => element.nameInBangla == selectedUnion!.nameInBangla);
+
+      permanentSelectedDivision = divisionList[divIndex];
+      permanentChangeDistrist(permanentSelectedDivision);
+      permanentChangeUpazilla(districtList[disIndex]);
+      permanentChangeUnion(upazillaList[subDivIndex]);
+      permanentChangeVillage(unionList[unionIndex]);
+
+      _permanentPostCode.text =  _postCode.text;
+      _permanentStreet.text = _street.text;
+      
+    }
+
+    setState(() {
+      
+    });
 
   }
 }
